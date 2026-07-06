@@ -19,19 +19,13 @@ const projection = d3.geoOrthographic()
 const path = d3.geoPath(projection);
 const graticule = d3.geoGraticule10();
 const sphere = { type: "Sphere" };
-
-const arcticCircle = {
-  type: "LineString",
-  coordinates: d3.range(-180, 181, 1).map(lon => [lon, 66.5636])
-};
+const arcticCircle = { type: "LineString", coordinates: d3.range(-180, 181, 1).map(lon => [lon, 66.5636]) };
 
 const g = svg.append("g");
-
 g.append("path").datum(sphere).attr("class", "sphere");
 g.append("path").datum(graticule).attr("class", "graticule");
 
 const defs = svg.select("defs");
-
 const landClip = defs.append("clipPath").attr("id", "landClip");
 const landClipPath = landClip.append("path");
 
@@ -43,39 +37,20 @@ const arcticPath = g.append("path").datum(arcticCircle).attr("class", "arctic-ci
 
 function reverseGeoJSONRings(obj) {
   const copy = JSON.parse(JSON.stringify(obj));
-
   function reverseGeometry(geom) {
     if (!geom) return;
-
-    if (geom.type === "Polygon") {
-      geom.coordinates = geom.coordinates.map(ring => [...ring].reverse());
-    } else if (geom.type === "MultiPolygon") {
-      geom.coordinates = geom.coordinates.map(poly =>
-        poly.map(ring => [...ring].reverse())
-      );
-    } else if (geom.type === "GeometryCollection") {
-      geom.geometries.forEach(reverseGeometry);
-    }
+    if (geom.type === "Polygon") geom.coordinates = geom.coordinates.map(ring => [...ring].reverse());
+    else if (geom.type === "MultiPolygon") geom.coordinates = geom.coordinates.map(poly => poly.map(ring => [...ring].reverse()));
+    else if (geom.type === "GeometryCollection") geom.geometries.forEach(reverseGeometry);
   }
-
-  if (copy.type === "FeatureCollection") {
-    copy.features.forEach(f => reverseGeometry(f.geometry));
-  } else if (copy.type === "Feature") {
-    reverseGeometry(copy.geometry);
-  } else {
-    reverseGeometry(copy);
-  }
-
+  if (copy.type === "FeatureCollection") copy.features.forEach(f => reverseGeometry(f.geometry));
+  else if (copy.type === "Feature") reverseGeometry(copy.geometry);
+  else reverseGeometry(copy);
   return copy;
 }
 
-function normalizeLon(lon) {
-  return ((lon + 180) % 360 + 360) % 360 - 180;
-}
-
-function clampLat(lat) {
-  return Math.max(-89.5, Math.min(89.5, lat));
-}
+function normalizeLon(lon) { return ((lon + 180) % 360 + 360) % 360 - 180; }
+function clampLat(lat) { return Math.max(-89.5, Math.min(89.5, lat)); }
 
 function showTooltip(event, region) {
   tooltip
@@ -84,9 +59,33 @@ function showTooltip(event, region) {
     .style("top", `${event.clientY + 14}px`)
     .html(`<strong>${region.name}</strong><span>Click to play the current challenge</span>`);
 }
+function hideTooltip() { tooltip.style("display", "none"); }
 
-function hideTooltip() {
-  tooltip.style("display", "none");
+function updateRegionFlagImage(region) {
+  const node = region.outlinePath.node();
+  if (!node) return;
+  let b;
+  try { b = node.getBBox(); } catch { region.flagImage.attr("display", "none"); return; }
+  if (!isFinite(b.x) || !isFinite(b.y) || b.width <= 0 || b.height <= 0) {
+    region.flagImage.attr("display", "none");
+    return;
+  }
+
+  region.flagImage.attr("display", "block");
+
+  const pad = Math.max(b.width, b.height) * 0.18;
+  const x = b.x - pad, y = b.y - pad, w = b.width + pad * 2, h = b.height + pad * 2;
+  const targetRatio = 3 / 2;
+  let fw = w, fh = h;
+  if (fw / fh < targetRatio) fw = fh * targetRatio;
+  else fh = fw / targetRatio;
+
+  const cx = x + w / 2, cy = y + h / 2;
+  region.flagImage
+    .attr("x", cx - fw / 2)
+    .attr("y", cy - fh / 2)
+    .attr("width", fw)
+    .attr("height", fh);
 }
 
 function redraw() {
@@ -101,13 +100,9 @@ function redraw() {
 
   regions.forEach(region => {
     const d = path(region.geojson);
-
     region.clipPath.attr("d", d);
     region.outlinePath.datum(region.geojson).attr("d", d);
-
-    // Important :
-    // on ne recalcule plus x/y/width/height du drapeau ici.
-    // Le drapeau reste fixe dans le SVG, seulement le clip bouge avec la région.
+    updateRegionFlagImage(region);
   });
 
   arcticPath.attr("d", path);
@@ -122,14 +117,11 @@ function applyRotation(r) {
 
 function startSmoothLoop() {
   if (smoothTimer) return;
-
   smoothTimer = d3.timer(() => {
     const ease = 0.18;
-
     let lonDiff = targetRotation[0] - rotation[0];
     if (lonDiff > 180) lonDiff -= 360;
     if (lonDiff < -180) lonDiff += 360;
-
     const latDiff = targetRotation[1] - rotation[1];
 
     if (Math.abs(lonDiff) < 0.01 && Math.abs(latDiff) < 0.01) {
@@ -138,12 +130,7 @@ function startSmoothLoop() {
       smoothTimer = null;
       return;
     }
-
-    applyRotation([
-      rotation[0] + lonDiff * ease,
-      rotation[1] + latDiff * ease,
-      0
-    ]);
+    applyRotation([rotation[0] + lonDiff * ease, rotation[1] + latDiff * ease, 0]);
   });
 }
 
@@ -153,23 +140,14 @@ function setTargetRotation(r) {
 }
 
 function setView(view) {
-  const views = {
-    arctic: [0, -90, 0],
-    canada: [75, -68, 0]
-  };
-
+  const views = { arctic: [0, -90, 0], canada: [75, -68, 0] };
   setTargetRotation(views[view] || views.canada);
 }
 
 function toggleSpin() {
   spinning = !spinning;
-
   if (spinning) {
-    if (smoothTimer) {
-      smoothTimer.stop();
-      smoothTimer = null;
-    }
-
+    if (smoothTimer) { smoothTimer.stop(); smoothTimer = null; }
     spinTimer = d3.timer(() => {
       targetRotation = [normalizeLon(targetRotation[0] + 0.12), targetRotation[1], 0];
       applyRotation([rotation[0] + 0.12, rotation[1], 0]);
@@ -180,18 +158,12 @@ function toggleSpin() {
   }
 }
 
-let dragStart = null;
-let dragStartRotation = null;
+let dragStart = null, dragStartRotation = null;
 
 svg.call(d3.drag()
   .on("start", event => {
     if (spinning) toggleSpin();
-
-    if (smoothTimer) {
-      smoothTimer.stop();
-      smoothTimer = null;
-    }
-
+    if (smoothTimer) { smoothTimer.stop(); smoothTimer = null; }
     hideTooltip();
     dragStart = [event.x, event.y];
     dragStartRotation = [...rotation];
@@ -199,12 +171,9 @@ svg.call(d3.drag()
   })
   .on("drag", event => {
     const speed = 0.35;
-    const dx = event.x - dragStart[0];
-    const dy = event.y - dragStart[1];
-
+    const dx = event.x - dragStart[0], dy = event.y - dragStart[1];
     const newLon = dragStartRotation[0] + dx * speed;
     const newLat = dragStartRotation[1] - dy * speed;
-
     targetRotation = [normalizeLon(newLon), clampLat(newLat), 0];
     applyRotation(targetRotation);
   })
@@ -229,11 +198,7 @@ svg.on("dblclick.zoom", null);
 svg.on("dblclick", () => setView("canada"));
 
 async function load() {
-  const [config, world] = await Promise.all([
-    d3.json(CONFIG_URL),
-    d3.json(LAND_URL)
-  ]);
-
+  const [config, world] = await Promise.all([d3.json(CONFIG_URL), d3.json(LAND_URL)]);
   landData = topojson.feature(world, world.objects.land);
 
   for (const item of config.regions) {
@@ -241,21 +206,18 @@ async function load() {
     if (item.needsReverse) geojson = reverseGeoJSONRings(geojson);
 
     const clipId = `clip-${item.id}`;
-
-    const clipPath = defs.append("clipPath")
-      .attr("id", clipId)
-      .append("path");
+    const clipPath = defs.append("clipPath").attr("id", clipId).append("path");
 
     const flagImage = flagGroup.append("image")
       .attr("class", "region-flag")
       .attr("href", item.flag)
       .attr("clip-path", `url(#${clipId})`)
-      .attr("preserveAspectRatio", "xMidYMid meet")
-      .attr("x", 230)
-      .attr("y", 250)
-      .attr("width", 440)
-      .attr("height", 300);
-
+      .attr("preserveAspectRatio", "xMidYMid slice")
+      .attr("x", 0)
+      .attr("y", 0)
+      .attr("width", 900)
+      .attr("height", 900);
+    
     const outlinePath = outlineGroup.append("path")
       .attr("class", "region-outline")
       .on("mouseenter", event => showTooltip(event, item))
@@ -265,19 +227,12 @@ async function load() {
         if (item.challenge_url) window.open(item.challenge_url, "_blank");
       });
 
-    regions.push({
-      ...item,
-      geojson,
-      clipPath,
-      flagImage,
-      outlinePath
-    });
+    regions.push({ ...item, geojson, clipPath, flagImage, outlinePath });
   }
 
   redraw();
 }
 
 load();
-
 window.setView = setView;
 window.toggleSpin = toggleSpin;
