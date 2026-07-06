@@ -1,19 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1416" height="1000" viewBox="0 0 1416 1000" role="img" aria-label="Simplified Alaska flag">
-  <rect width="1416" height="1000" fill="#132A63"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" width="1416" height="1000" viewBox="0 0 1416 1000" role="img" aria-label="Custom Alaska flag">
+  <rect width="1416" height="1000" fill="#0F204B"/>
   <defs>
     <polygon id="star" points="0,-1 0.2245,-0.309 0.9511,-0.309 0.3633,0.118 0.5878,0.809 0,0.382 -0.5878,0.809 -0.3633,0.118 -0.9511,-0.309 -0.2245,-0.309"/>
   </defs>
 
   <!-- North Star -->
-  <use href="#star" transform="translate(700 130) scale(32)" fill="#F6BC16"/>
+  <use href="#star" transform="translate(1021 223) scale(32)" fill="#F6BC16"/>
 
-  <!-- Big Dipper -->
-  <use href="#star" transform="translate(322 252) scale(19)" fill="#F6BC16"/>
-  <use href="#star" transform="translate(391 276) scale(19)" fill="#F6BC16"/>
-  <use href="#star" transform="translate(425 314) scale(19)" fill="#F6BC16"/>
-  <use href="#star" transform="translate(458 352) scale(19)" fill="#F6BC16"/>
-  <use href="#star" transform="translate(455 405) scale(19)" fill="#F6BC16"/>
-  <use href="#star" transform="translate(531 429) scale(19)" fill="#F6BC16"/>
-  <use href="#star" transform="translate(560 387) scale(19)" fill="#F6BC16"/>
+  <!-- Big Dipper, matched to user-provided placement -->
+  <use href="#star" transform="translate(640 313) scale(18)" fill="#F6BC16"/>
+  <use href="#star" transform="translate(708 337) scale(19)" fill="#F6BC16"/>
+  <use href="#star" transform="translate(742 374) scale(19)" fill="#F6BC16"/>
+  <use href="#star" transform="translate(777 412) scale(19)" fill="#F6BC16"/>
+  <use href="#star" transform="translate(771 465) scale(19)" fill="#F6BC16"/>
+  <use href="#star" transform="translate(848 489) scale(19)" fill="#F6BC16"/>
+  <use href="#star" transform="translate(878 448) scale(19)" fill="#F6BC16"/>
 </svg>
