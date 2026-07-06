@@ -208,13 +208,16 @@ async function load() {
     const clipId = `clip-${item.id}`;
     const clipPath = defs.append("clipPath").attr("id", clipId).append("path");
 
-const flagImage = flagGroup.append("image")
-  .attr("class", "region-flag")
-  .attr("href", item.flag)
-  .attr("clip-path", `url(#${clipId})`)
-  .attr("preserveAspectRatio", "xMidYMid slice")
-  .style("display", "none");
-
+    const flagImage = flagGroup.append("image")
+      .attr("class", "region-flag")
+      .attr("href", item.flag)
+      .attr("clip-path", `url(#${clipId})`)
+      .attr("preserveAspectRatio", "xMidYMid slice")
+      .attr("x", 0)
+      .attr("y", 0)
+      .attr("width", 900)
+      .attr("height", 900);
+    
     const outlinePath = outlineGroup.append("path")
       .attr("class", "region-outline")
       .on("mouseenter", event => showTooltip(event, item))
