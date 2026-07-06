@@ -244,12 +244,15 @@ svg.call(d3.drag()
     targetRotation = [...rotation];
   })
   .on("drag", event => {
-    const speed = 0.35;
-    const dx = event.x - dragStart[0];
-    const dy = event.y - dragStart[1];
+    
+  const zoomFactor = currentScale / baseScale;
+  const speed = 0.35 / zoomFactor;
 
-    const newLon = dragStartRotation[0] + dx * speed;
-    const newLat = dragStartRotation[1] - dy * speed;
+  const dx = event.x - dragStart[0];
+  const dy = event.y - dragStart[1];
+
+  const newLon = dragStartRotation[0] + dx * speed;
+  const newLat = dragStartRotation[1] - dy * speed;
 
     targetRotation = [normalizeLon(newLon), clampLat(newLat), 0];
     applyRotation(targetRotation);
