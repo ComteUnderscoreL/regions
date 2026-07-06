@@ -26,6 +26,15 @@
   "label": [-157.5, 69.2],
   "challenge_url": "https://www.geoguessr.com/challenge/CHALLENGE_INUPIAQ",
   "needsReverse": true
+},
+    {
+  "id": "nunatsiavut",
+  "name": "Nunatsiavut",
+  "geojson": "geojson/nunatsiavut.geojson",
+  "flag": "flags/nunatsiavut.svg",
+  "label": [-61.5, 56.0],
+  "challenge_url": "https://www.geoguessr.com/challenge/CHALLENGE_NUNATSIAVUT",
+  "needsReverse": true
 }
   ]
 }
