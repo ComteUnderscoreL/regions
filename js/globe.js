@@ -261,7 +261,7 @@ svg.call(d3.drag()
 );
 
 svg.call(d3.zoom()
-  .scaleExtent([0.6, 2.2])
+  .scaleExtent([0.6, 8])
   .filter(event => event.type === "wheel")
   .on("zoom", event => {
     currentScale = baseScale * event.transform.k;
