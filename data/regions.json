@@ -6,7 +6,7 @@
       "geojson": "geojson/nunavik.geojson",
       "flag": "flags/nunavik.svg",
       "label": [-73.5, 58.9],
-      "challenge_url": "https://www.geoguessr.com/challenge/CHALLENGE",
+      "challenge_url": "https://www.geoguessr.com/challenge/CHALLENGE_NUNAVIK",
       "needsReverse": true
     },
     {
@@ -17,6 +17,15 @@
       "label": [4.7, 36.45],
       "challenge_url": "https://www.geoguessr.com/challenge/CHALLENGE_KABYLIE",
       "needsReverse": true
-    }
+    },
+    {
+  "id": "inupiat",
+  "name": "Iñupiaq Nunaat",
+  "geojson": "geojson/inupiaq.geojson",
+  "flag": "flags/alaska.svg",
+  "label": [-157.5, 69.2],
+  "challenge_url": "https://www.geoguessr.com/challenge/CHALLENGE_INUPIAQ",
+  "needsReverse": true
+}
   ]
 }
