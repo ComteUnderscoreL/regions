@@ -1,0 +1,17 @@
+{
+  "regions": [
+    {
+      "id": "nunavik",
+      "name": "Nunavik",
+      "geojson": "geojson/nunavik.geojson",
+      "flag": "flags/nunavik.svg",
+      "label": [
+        -73.5,
+        58.9
+      ],
+      "challenge_url": "https://www.geoguessr.com/challenge/TON_CHALLENGE_NUNAVIK",
+      "map_url": "https://www.geoguessr.com/maps/TON_ID_MAP_NUNAVIK",
+      "needsReverse": true
+    }
+  ]
+}
