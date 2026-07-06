@@ -5,48 +5,153 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Regions</title>
   <style>
-    html, body { margin: 0; height: 100%; overflow: hidden; background: #101820; color: white; font-family: system-ui, Arial, sans-serif; }
-    body { display: grid; grid-template-rows: auto 1fr; }
-    header { padding: 18px 22px 8px; text-align: center; pointer-events: none; z-index: 2; }
-    h1 { margin: 0; font-size: clamp(28px, 4vw, 52px); letter-spacing: 0.04em; }
-    .subtitle { margin-top: 6px; color: #c8d5df; font-size: 15px; }
-    #globe-wrap { position: relative; display: grid; place-items: center; overflow: hidden; }
-    svg { width: min(98vh, 98vw); height: min(98vh, 98vw); min-width: 360px; min-height: 360px; cursor: grab; user-select: none; touch-action: none; }
-    svg:active { cursor: grabbing; }
-    .sphere { fill: #15324a; stroke: #7fa4c2; stroke-width: 1.2; }
-    .graticule { fill: none; stroke: rgba(255,255,255,0.18); stroke-width: 0.5; }
-    .land-base { fill: #d8d0b8; stroke: none; }
-    .land-outline { fill: none; stroke: #26342b; stroke-width: 0.55; pointer-events: none; }
-    .region-flag { opacity: 0.42; pointer-events: none; }
-.region-outline {
-  fill: rgba(255, 157, 77, 0.55);
-  stroke: white;
-  stroke-width: 1.65;
-  cursor: pointer;
-  pointer-events: all;
-}    .region-outline:hover { fill: rgba(255,255,255,0.10); stroke-width: 2.8; filter: drop-shadow(0 0 7px rgba(255,255,255,0.75)); }
-    .arctic-circle { fill: none; stroke: #ffffff; stroke-width: 1.45; stroke-dasharray: 5 5; opacity: 0.85; pointer-events: none; }
-    .tooltip { position: fixed; display: none; pointer-events: none; background: rgba(12,18,25,0.92); color: white; border: 1px solid rgba(255,255,255,0.25); border-radius: 10px; padding: 9px 11px; font-size: 14px; box-shadow: 0 8px 25px rgba(0,0,0,0.35); z-index: 10; max-width: 240px; }
-    .tooltip strong { display: block; font-size: 15px; margin-bottom: 3px; }
-.bottom-link {
-  position: fixed;
-  left: 16px;
-  bottom: 14px;
-  color: rgba(255,255,255,0.85);
-  font-size: 13px;
-  z-index: 2;
-  text-decoration: none;
-  background: rgba(145, 70, 255, 0.25);
-  border: 1px solid rgba(255,255,255,0.25);
-  padding: 7px 11px;
-  border-radius: 999px;
-}
+    html, body {
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+      background: #101820;
+      color: white;
+      font-family: system-ui, Arial, sans-serif;
+    }
 
-.bottom-link:hover {
-  background: rgba(145, 70, 255, 0.45);
-}
+    body {
+      display: grid;
+      grid-template-rows: auto 1fr;
+    }
+
+    header {
+      padding: 18px 22px 8px;
+      text-align: center;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 52px);
+      letter-spacing: 0.04em;
+    }
+
+    .subtitle {
+      margin-top: 6px;
+      color: #c8d5df;
+      font-size: 15px;
+    }
+
+    #globe-wrap {
+      position: relative;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    svg {
+      width: min(98vh, 98vw);
+      height: min(98vh, 98vw);
+      min-width: 360px;
+      min-height: 360px;
+      cursor: grab;
+      user-select: none;
+      touch-action: none;
+    }
+
+    svg:active {
+      cursor: grabbing;
+    }
+
+    .sphere {
+      fill: #15324a;
+      stroke: #7fa4c2;
+      stroke-width: 1.2;
+    }
+
+    .graticule {
+      fill: none;
+      stroke: rgba(255,255,255,0.18);
+      stroke-width: 0.5;
+    }
+
+    .land-base {
+      fill: #d8d0b8;
+      stroke: none;
+    }
+
+    .land-outline {
+      fill: none;
+      stroke: #26342b;
+      stroke-width: 0.55;
+      pointer-events: none;
+    }
+
+    .region-flag {
+      opacity: 0.42;
+      pointer-events: none;
+    }
+
+    .region-outline {
+      fill: rgba(255,255,255,0.04);
+      stroke: white;
+      stroke-width: 1.65;
+      cursor: pointer;
+      pointer-events: all;
+    }
+
+    .region-outline:hover {
+      fill: rgba(255,255,255,0.10);
+      stroke-width: 2.8;
+      filter: drop-shadow(0 0 7px rgba(255,255,255,0.75));
+    }
+
+    .arctic-circle {
+      fill: none;
+      stroke: #ffffff;
+      stroke-width: 1.45;
+      stroke-dasharray: 5 5;
+      opacity: 0.85;
+      pointer-events: none;
+    }
+
+    .tooltip {
+      position: fixed;
+      display: none;
+      pointer-events: none;
+      background: rgba(12,18,25,0.92);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 14px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.35);
+      z-index: 10;
+      max-width: 240px;
+    }
+
+    .tooltip strong {
+      display: block;
+      font-size: 15px;
+      margin-bottom: 3px;
+    }
+
+    .bottom-link {
+      position: fixed;
+      left: 16px;
+      bottom: 14px;
+      color: rgba(255,255,255,0.85);
+      font-size: 13px;
+      z-index: 2;
+      text-decoration: none;
+      background: rgba(145, 70, 255, 0.25);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 7px 11px;
+      border-radius: 999px;
+    }
+
+    .bottom-link:hover {
+      background: rgba(145, 70, 255, 0.45);
+    }
   </style>
 </head>
+
 <body>
   <header>
     <h1>Regions</h1>
@@ -54,13 +159,15 @@
   </header>
 
   <main id="globe-wrap">
-    <svg id="globe" viewBox="0 0 900 900"><defs></defs></svg>
+    <svg id="globe" viewBox="0 0 900 900">
+      <defs></defs>
+    </svg>
     <div id="tooltip" class="tooltip"></div>
   </main>
 
   <a class="bottom-link" href="https://www.twitch.tv/comte_l" target="_blank">
-  Comte_L
-</a>
+    Comte_L
+  </a>
 
   <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
   <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
