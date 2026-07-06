@@ -23,8 +23,23 @@
     .arctic-circle { fill: none; stroke: #ffffff; stroke-width: 1.45; stroke-dasharray: 5 5; opacity: 0.85; pointer-events: none; }
     .tooltip { position: fixed; display: none; pointer-events: none; background: rgba(12,18,25,0.92); color: white; border: 1px solid rgba(255,255,255,0.25); border-radius: 10px; padding: 9px 11px; font-size: 14px; box-shadow: 0 8px 25px rgba(0,0,0,0.35); z-index: 10; max-width: 240px; }
     .tooltip strong { display: block; font-size: 15px; margin-bottom: 3px; }
-    .hint { position: fixed; left: 16px; bottom: 14px; color: rgba(255,255,255,0.68); font-size: 13px; z-index: 2; pointer-events: none; }
-    @media (max-width: 700px) { header { padding-top: 12px; } .subtitle { font-size: 13px; } .hint { display: none; } }
+.bottom-link {
+  position: fixed;
+  left: 16px;
+  bottom: 14px;
+  color: rgba(255,255,255,0.85);
+  font-size: 13px;
+  z-index: 2;
+  text-decoration: none;
+  background: rgba(145, 70, 255, 0.25);
+  border: 1px solid rgba(255,255,255,0.25);
+  padding: 7px 11px;
+  border-radius: 999px;
+}
+
+.bottom-link:hover {
+  background: rgba(145, 70, 255, 0.45);
+}
   </style>
 </head>
 <body>
@@ -38,7 +53,9 @@
     <div id="tooltip" class="tooltip"></div>
   </main>
 
-  <div class="hint">Comte_L</div>
+  <a class="bottom-link" href="https://www.twitch.tv/comte_l" target="_blank">
+  Comte_L
+</a>
 
   <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
   <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
