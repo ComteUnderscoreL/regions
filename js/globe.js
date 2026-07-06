@@ -208,11 +208,12 @@ async function load() {
     const clipId = `clip-${item.id}`;
     const clipPath = defs.append("clipPath").attr("id", clipId).append("path");
 
-    const flagImage = flagGroup.append("image")
-      .attr("class", "region-flag")
-      .attr("href", item.flag)
-      .attr("clip-path", `url(#${clipId})`)
-      .attr("preserveAspectRatio", "xMidYMid slice");
+const flagImage = flagGroup.append("image")
+  .attr("class", "region-flag")
+  .attr("href", item.flag)
+  .attr("clip-path", `url(#${clipId})`)
+  .attr("preserveAspectRatio", "xMidYMid slice")
+  .style("display", "none");
 
     const outlinePath = outlineGroup.append("path")
       .attr("class", "region-outline")
