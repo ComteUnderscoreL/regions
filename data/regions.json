@@ -35,6 +35,15 @@
       "label": [-61.5, 56.0],
       "challenge_url": "https://www.geoguessr.com/challenge/CHALLENGE_NUNATSIAVUT",
       "needsReverse": true
-    }
+    },
+    {
+  "id": "capeverde",
+  "name": "Cabo Verde<br>Cap-Vert",
+  "geojson": "geojson/capeverde.geojson",
+  "flag": "flags/capeverde.svg",
+  "label": [-24.1, 16.1],
+  "challenge_url": "https://www.geoguessr.com/challenge/CHALLENGE_CAPEVERDE",
+  "needsReverse": true
+}
   ]
 }
