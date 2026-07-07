@@ -305,10 +305,10 @@ async function load() {
       .attr("id", clipId)
       .append("path");
 
-    const isOceanRegion = item.id === "capeverde";
+    const clipToLand = item.clipToLand !== false;
 
-    const targetFlagGroup = isOceanRegion ? oceanFlagGroup : flagGroup;
-    const targetOutlineGroup = isOceanRegion ? oceanOutlineGroup : outlineGroup;
+    const targetFlagGroup = clipToLand ? flagGroup : oceanFlagGroup;
+    const targetOutlineGroup = clipToLand ? outlineGroup : oceanOutlineGroup;
 
     const flagImage = targetFlagGroup.append("image")
       .attr("class", "region-flag")
