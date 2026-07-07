@@ -1,4 +1,4 @@
-const CONFIG_URL = "data/regions.json";
+const CONFIG_URL = "data/regions.json?v=1";
 const LAND_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/land-110m.json";
 
 const svg = d3.select("#globe");
