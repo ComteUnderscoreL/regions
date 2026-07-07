@@ -302,7 +302,7 @@ async function load() {
       .attr("class", "region-flag")
       .attr("href", item.flag)
       .attr("clip-path", `url(#${clipId})`)
-      .attr("preserveAspectRatio", "xMidYMid slice");
+      .attr("preserveAspectRatio", "xMidYMid meet");
 
     const outlinePath = outlineGroup.append("path")
       .attr("class", "region-outline")
