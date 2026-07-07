@@ -43,7 +43,8 @@
   "flag": "flags/capeverde.svg",
   "label": [-24.1, 16.1],
   "challenge_url": "https://www.geoguessr.com/challenge/CHALLENGE_CAPEVERDE",
-  "needsReverse": true
-}
+  "needsReverse": true,
+  "clipToLand": false
+    }
   ]
 }
