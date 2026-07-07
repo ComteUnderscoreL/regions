@@ -36,8 +36,15 @@ const landClip = defs.append("clipPath").attr("id", "landClip");
 const landClipPath = landClip.append("path");
 
 const landBasePath = g.append("path").attr("class", "land-base");
+
+// Régions normales : clippées à la terre
 const flagGroup = g.append("g").attr("clip-path", "url(#landClip)");
 const outlineGroup = g.append("g").attr("clip-path", "url(#landClip)");
+
+// Régions océaniques / petites îles : non clippées à la terre
+const oceanFlagGroup = g.append("g");
+const oceanOutlineGroup = g.append("g");
+
 const landOutlinePath = g.append("path").attr("class", "land-outline");
 const arcticPath = g.append("path").datum(arcticCircle).attr("class", "arctic-circle");
 
@@ -200,7 +207,8 @@ function setTargetRotation(r) {
 function setView(view) {
   const views = {
     arctic: [0, -90, 0],
-    canada: [75, -68, 0]
+    canada: [75, -68, 0],
+    atlantic: [24, -18, 0]
   };
 
   setTargetRotation(views[view] || views.canada);
@@ -244,15 +252,14 @@ svg.call(d3.drag()
     targetRotation = [...rotation];
   })
   .on("drag", event => {
-    
-  const zoomFactor = currentScale / baseScale;
-  const speed = 0.35 / zoomFactor;
+    const zoomFactor = currentScale / baseScale;
+    const speed = 0.35 / zoomFactor;
 
-  const dx = event.x - dragStart[0];
-  const dy = event.y - dragStart[1];
+    const dx = event.x - dragStart[0];
+    const dy = event.y - dragStart[1];
 
-  const newLon = dragStartRotation[0] + dx * speed;
-  const newLat = dragStartRotation[1] - dy * speed;
+    const newLon = dragStartRotation[0] + dx * speed;
+    const newLat = dragStartRotation[1] - dy * speed;
 
     targetRotation = [normalizeLon(newLon), clampLat(newLat), 0];
     applyRotation(targetRotation);
@@ -298,13 +305,18 @@ async function load() {
       .attr("id", clipId)
       .append("path");
 
-    const flagImage = flagGroup.append("image")
+    const isOceanRegion = item.id === "capeverde";
+
+    const targetFlagGroup = isOceanRegion ? oceanFlagGroup : flagGroup;
+    const targetOutlineGroup = isOceanRegion ? oceanOutlineGroup : outlineGroup;
+
+    const flagImage = targetFlagGroup.append("image")
       .attr("class", "region-flag")
       .attr("href", item.flag)
       .attr("clip-path", `url(#${clipId})`)
       .attr("preserveAspectRatio", "xMidYMid meet");
 
-    const outlinePath = outlineGroup.append("path")
+    const outlinePath = targetOutlineGroup.append("path")
       .attr("class", "region-outline")
       .on("mouseenter", event => showTooltip(event, item))
       .on("mousemove", event => showTooltip(event, item))
