@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1500" height="1000" viewBox="0 0 1500 1000">
   <rect width="1500" height="1000" fill="white"/>
-  <g transform="translate(750 500) scale(0.58) translate(-750 -500)">
+  <g transform="translate(750 500) scale(0.52) translate(-750 -500) translate(-70 0)">
 
 <desc>Created with Fabric.js 3.6.3</desc>
 <defs>
