@@ -2,7 +2,7 @@
   "regions": [
     {
       "id": "nunavik",
-      "name": "Nunavik",
+      "name": "ᓄᓇᕕᒃ<br>Nunavik",
       "geojson": "geojson/nunavik.geojson",
       "flag": "flags/nunavik.svg",
       "label": [-73.5, 58.9],
@@ -11,7 +11,7 @@
     },
     {
       "id": "kabylie",
-      "name": "ⵜⴰⵎⵓⵔⵜ ⵏ ⵍⵇⴱⴰⵢⵍ · Kabylie · منطقة القبائل",
+      "name": "ⵜⴰⵎⵓⵔⵜ ⵏ ⵍⵇⴱⴰⵢⵍ<br>Kabylie<br>منطقة القبائل",
       "geojson": "geojson/kabylie.geojson",
       "flag": "flags/amazigh.svg",
       "label": [4.7, 36.45],
