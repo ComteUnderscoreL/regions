@@ -417,6 +417,16 @@
       return "none";
     }
 
+    function globeMedalForAttempt(attempt) {
+      const medal = medalForAttempt(attempt);
+
+      if (medal === "emerald" || medal === "netherite") {
+        return "diamond";
+      }
+
+      return medal;
+    }
+
     function isBetterAttempt(newAttempt, oldAttempt) {
       if (!oldAttempt) return true;
 
@@ -733,7 +743,8 @@
 
         const best = bestByRegion.get(item.id);
         const medal = medalForAttempt(best);
-        const fillColor = medalInfo[medal].color;
+        const globeMedal = globeMedalForAttempt(best);
+        const fillColor = medalInfo[globeMedal].color;
         const clipToLand = item.clipToLand !== false;
         const targetGroup = clipToLand ? regionGroup : oceanRegionGroup;
 
