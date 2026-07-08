@@ -7,16 +7,14 @@
   <style>
     html, body {
       margin: 0;
-      height: 100%;
-      overflow: hidden;
+      min-height: 100%;
       background: #101820;
       color: white;
       font-family: system-ui, Arial, sans-serif;
     }
 
     body {
-      display: grid;
-      grid-template-rows: auto 1fr;
+      overflow-x: hidden;
     }
 
     header {
@@ -43,11 +41,13 @@
       display: grid;
       place-items: center;
       overflow: hidden;
+      height: min(78vh, 860px);
+      min-height: 460px;
     }
 
     svg {
-      width: min(130vh, 130vw);
-      height: min(95vh, 95vw);
+      width: min(98vh, 98vw);
+      height: min(98vh, 98vw);
       min-width: 360px;
       min-height: 360px;
       cursor: grab;
@@ -111,51 +111,209 @@
       pointer-events: none;
     }
 
-    .tooltip {
+    .tooltip,
+    .score-tooltip {
       position: fixed;
       display: none;
       pointer-events: none;
-      background: rgba(12,18,25,0.92);
+      background: rgba(12,18,25,0.94);
       color: white;
       border: 1px solid rgba(255,255,255,0.25);
       border-radius: 10px;
       padding: 9px 11px;
       font-size: 14px;
       box-shadow: 0 8px 25px rgba(0,0,0,0.35);
-      z-index: 10;
-      max-width: 240px;
+      z-index: 20;
+      max-width: 320px;
     }
 
-    .tooltip strong {
+    .tooltip strong,
+    .score-tooltip strong {
       display: block;
       font-size: 15px;
       margin-bottom: 3px;
     }
 
-.bottom-link {
-  position: fixed;
-  left: 16px;
-  bottom: 14px;
-  color: rgba(255,255,255,0.55);
-  font-size: 13px;
-  z-index: 2;
-  text-decoration: none;
-  background: none;
-  border: none;
-  padding: 0;
-}
+    .score-tooltip .small {
+      color: rgba(255,255,255,0.62);
+      font-size: 12px;
+      margin-bottom: 7px;
+    }
 
-.bottom-link:hover {
-  color: rgba(255,255,255,0.9);
-  text-decoration: underline;
-}
+    .score-tooltip table {
+      min-width: 0;
+      width: 100%;
+      border: none;
+      background: transparent;
+    }
+
+    .score-tooltip td {
+      border: none;
+      padding: 3px 4px;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .score-tooltip td:first-child {
+      white-space: normal;
+      max-width: 160px;
+      color: rgba(255,255,255,0.88);
+    }
+
+    .bottom-link {
+      position: fixed;
+      left: 16px;
+      bottom: 14px;
+      color: rgba(255,255,255,0.55);
+      font-size: 13px;
+      z-index: 2;
+      text-decoration: none;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
+    .bottom-link:hover {
+      color: rgba(255,255,255,0.9);
+      text-decoration: underline;
+    }
+
+    .leaderboard {
+      max-width: 980px;
+      margin: -4px auto 42px;
+      padding: 0 16px 28px;
+    }
+
+    .leaderboard-header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 10px;
+    }
+
+    .leaderboard h2 {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: 0.03em;
+    }
+
+    .leaderboard-note {
+      color: rgba(255,255,255,0.55);
+      font-size: 13px;
+    }
+
+    .leaderboard-table-wrap {
+      overflow-x: auto;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.05);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 760px;
+    }
+
+    th, td {
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.10);
+      text-align: center;
+      font-size: 14px;
+    }
+
+    th {
+      color: rgba(255,255,255,0.72);
+      font-weight: 600;
+      background: rgba(255,255,255,0.06);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    td.player-cell,
+    th.player-cell {
+      text-align: left;
+      position: sticky;
+      left: 0;
+      background: rgba(16,24,32,0.96);
+      z-index: 1;
+    }
+
+    th.player-cell {
+      z-index: 2;
+    }
+
+    .player-link {
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .player-link:hover {
+      text-decoration: underline;
+    }
+
+    .rank {
+      color: rgba(255,255,255,0.55);
+      margin-right: 8px;
+      font-weight: 600;
+    }
+
+    .medal-head {
+      width: 24px;
+      height: 24px;
+      vertical-align: middle;
+    }
+
+    .medal-count {
+      font-weight: 700;
+    }
+
+    .medal-count.has-medal {
+      cursor: help;
+      color: white;
+    }
+
+    .medal-count.has-medal:hover {
+      background: rgba(255,255,255,0.11);
+    }
+
+    .score-muted {
+      color: rgba(255,255,255,0.62);
+    }
+
+    @media (max-width: 700px) {
+      header {
+        padding-top: 14px;
+      }
+
+      #globe-wrap {
+        height: min(70vh, 720px);
+        min-height: 420px;
+      }
+
+      .leaderboard-header {
+        align-items: start;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .bottom-link {
+        position: static;
+        display: block;
+        margin: 0 16px 16px;
+      }
+    }
   </style>
 </head>
 
 <body>
   <header>
-    <h1>No Move Explorer</h1>
-    <div class="subtitle">GeoGuessr no move 25k regional challenges</div>
+    <h1>Regions</h1>
+    <div class="subtitle">Interactive GeoGuessr regional hub</div>
   </header>
 
   <main id="globe-wrap">
@@ -165,12 +323,323 @@
     <div id="tooltip" class="tooltip"></div>
   </main>
 
+  <section class="leaderboard">
+    <div class="leaderboard-header">
+      <h2>Medal</h2>
+      <div class="leaderboard-note">Click a player to open the globe</div>
+    </div>
+
+    <div class="leaderboard-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th class="player-cell">Player</th>
+            <th><img class="medal-head" src="https://raw.githubusercontent.com/ComteUnderscoreL/geostats/main/medal/netherite.svg" alt="Netherite" title="Netherite"></th>
+            <th><img class="medal-head" src="https://raw.githubusercontent.com/ComteUnderscoreL/geostats/main/medal/emerald.svg" alt="Emerald" title="Emerald"></th>
+            <th><img class="medal-head" src="https://raw.githubusercontent.com/ComteUnderscoreL/geostats/main/medal/diamond.svg" alt="Diamond" title="Diamond"></th>
+            <th><img class="medal-head" src="https://raw.githubusercontent.com/ComteUnderscoreL/geostats/main/medal/gold.svg" alt="Gold" title="Gold"></th>
+            <th><img class="medal-head" src="https://raw.githubusercontent.com/ComteUnderscoreL/geostats/main/medal/iron.svg" alt="Iron" title="Iron"></th>
+            <th><img class="medal-head" src="https://raw.githubusercontent.com/ComteUnderscoreL/geostats/main/medal/copper.svg" alt="Copper" title="Copper"></th>
+            <th>Played</th>
+            <th>Total best</th>
+          </tr>
+        </thead>
+        <tbody id="medal-ranking">
+          <tr>
+            <td class="player-cell" colspan="9">Loading…</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div id="score-tooltip" class="score-tooltip"></div>
+
   <a class="bottom-link" href="https://www.twitch.tv/comte_l" target="_blank">
     Comte_L
   </a>
 
   <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
   <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
-  <script src="js/globe.js?v=1"></script>
+  <script src="js/globe.js?v=3"></script>
+
+  <script>
+    const CONFIG_URL_FOR_RANKING = "data/regions.json?v=2";
+    const SCORES_URL = "data/player_scores.tsv?v=2";
+
+    const medalOrder = ["netherite", "emerald", "diamond", "gold", "iron", "copper"];
+
+    const medalLabels = {
+      netherite: "Netherite",
+      emerald: "Emerald",
+      diamond: "Diamond",
+      gold: "Gold",
+      iron: "Iron",
+      copper: "Copper"
+    };
+
+    function medalForAttempt(attempt) {
+      if (!attempt || !attempt.score) return "none";
+
+      const score = Number(attempt.score);
+      const time = Number(attempt.time_seconds);
+
+      if (score === 25000 && time > 0 && time < 300) return "netherite";
+      if (score === 25000 && time > 0 && time < 600) return "emerald";
+      if (score === 25000) return "diamond";
+      if (score >= 22500) return "gold";
+      if (score >= 15000) return "iron";
+      if (score >= 5000) return "copper";
+
+      return "none";
+    }
+
+    function isBetterAttempt(newAttempt, oldAttempt) {
+      if (!oldAttempt) return true;
+
+      const newScore = Number(newAttempt.score);
+      const oldScore = Number(oldAttempt.score);
+
+      if (newScore > oldScore) return true;
+      if (newScore < oldScore) return false;
+
+      const newTime = Number(newAttempt.time_seconds || Infinity);
+      const oldTime = Number(oldAttempt.time_seconds || Infinity);
+
+      return newTime < oldTime;
+    }
+
+    function formatScore(score) {
+      if (!score || score <= 0) return "—";
+      return Number(score).toLocaleString("en-US");
+    }
+
+    function formatTime(seconds) {
+      if (!seconds || !isFinite(seconds)) return "—";
+      seconds = Math.round(Number(seconds));
+      const m = Math.floor(seconds / 60);
+      const s = seconds % 60;
+      return `${m}:${String(s).padStart(2, "0")}`;
+    }
+
+    function stripHtml(value) {
+      const div = document.createElement("div");
+      div.innerHTML = value || "";
+      return div.textContent || div.innerText || "";
+    }
+
+    function parseAttempts(text) {
+      return d3.tsvParse(text).map(row => ({
+        ...row,
+        score: Number(row.score || 0),
+        time_seconds: Number(row.time_seconds || 0)
+      }));
+    }
+
+    function buildRegionNameMap(config) {
+      const map = new Map();
+
+      config.regions.forEach(region => {
+        map.set(region.id, stripHtml(region.name));
+      });
+
+      return map;
+    }
+
+    function buildRanking(attempts) {
+      const players = new Map();
+
+      attempts.forEach(attempt => {
+        const playerId = attempt.player_id;
+        const regionId = attempt.region_id;
+
+        if (!players.has(playerId)) {
+          players.set(playerId, {
+            player_id: playerId,
+            player: attempt.player || playerId,
+            bestByRegion: new Map()
+          });
+        }
+
+        const player = players.get(playerId);
+        const old = player.bestByRegion.get(regionId);
+
+        if (isBetterAttempt(attempt, old)) {
+          player.bestByRegion.set(regionId, attempt);
+        }
+      });
+
+      return [...players.values()].map(player => {
+        const counts = {
+          netherite: 0,
+          emerald: 0,
+          diamond: 0,
+          gold: 0,
+          iron: 0,
+          copper: 0
+        };
+
+        const byMedal = {
+          netherite: [],
+          emerald: [],
+          diamond: [],
+          gold: [],
+          iron: [],
+          copper: []
+        };
+
+        let totalBestScore = 0;
+
+        for (const attempt of player.bestByRegion.values()) {
+          const medal = medalForAttempt(attempt);
+
+          if (counts[medal] !== undefined) {
+            counts[medal] += 1;
+            byMedal[medal].push(attempt);
+          }
+
+          totalBestScore += Number(attempt.score || 0);
+        }
+
+        return {
+          ...player,
+          counts,
+          byMedal,
+          played: player.bestByRegion.size,
+          totalBestScore
+        };
+      }).sort((a, b) => {
+        for (const medal of medalOrder) {
+          const diff = b.counts[medal] - a.counts[medal];
+          if (diff !== 0) return diff;
+        }
+
+        if (b.totalBestScore !== a.totalBestScore) {
+          return b.totalBestScore - a.totalBestScore;
+        }
+
+        return a.player.localeCompare(b.player);
+      });
+    }
+
+    function positionScoreTooltip(event) {
+      const tooltip = document.getElementById("score-tooltip");
+      const pad = 14;
+
+      let left = event.clientX + pad;
+      let top = event.clientY + pad;
+
+      tooltip.style.left = `${left}px`;
+      tooltip.style.top = `${top}px`;
+
+      const rect = tooltip.getBoundingClientRect();
+
+      if (rect.right > window.innerWidth - 8) {
+        left = event.clientX - rect.width - pad;
+      }
+
+      if (rect.bottom > window.innerHeight - 8) {
+        top = event.clientY - rect.height - pad;
+      }
+
+      tooltip.style.left = `${Math.max(8, left)}px`;
+      tooltip.style.top = `${Math.max(8, top)}px`;
+    }
+
+    function showScoreTooltip(event, player, medal, regionNameMap) {
+      const tooltip = document.getElementById("score-tooltip");
+      const attempts = player.byMedal[medal] || [];
+
+      if (!attempts.length) {
+        tooltip.style.display = "none";
+        return;
+      }
+
+      const rows = attempts
+        .slice()
+        .sort((a, b) => {
+          const scoreDiff = Number(b.score) - Number(a.score);
+          if (scoreDiff !== 0) return scoreDiff;
+          return Number(a.time_seconds || Infinity) - Number(b.time_seconds || Infinity);
+        })
+        .map(attempt => `
+          <tr>
+            <td>${regionNameMap.get(attempt.region_id) || attempt.region_id}</td>
+            <td>${formatScore(attempt.score)}</td>
+            <td>${formatTime(attempt.time_seconds)}</td>
+          </tr>
+        `).join("");
+
+      tooltip.innerHTML = `
+        <strong>${player.player} · ${medalLabels[medal]}</strong>
+        <div class="small">${attempts.length} region${attempts.length > 1 ? "s" : ""}</div>
+        <table>
+          <tbody>${rows}</tbody>
+        </table>
+      `;
+
+      tooltip.style.display = "block";
+      positionScoreTooltip(event);
+    }
+
+    function hideScoreTooltip() {
+      document.getElementById("score-tooltip").style.display = "none";
+    }
+
+    function renderRanking(ranking, regionNameMap) {
+      const tbody = document.getElementById("medal-ranking");
+
+      if (!ranking.length) {
+        tbody.innerHTML = `<tr><td class="player-cell" colspan="9">No scores yet</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = ranking.map((player, index) => `
+        <tr>
+          <td class="player-cell">
+            <span class="rank">#${index + 1}</span>
+            <a class="player-link" href="player.html?id=${encodeURIComponent(player.player_id)}">${player.player}</a>
+          </td>
+          ${medalOrder.map(medal => `
+            <td
+              class="medal-count ${player.counts[medal] ? "has-medal" : ""}"
+              data-player-id="${player.player_id}"
+              data-medal="${medal}"
+            >${player.counts[medal] || 0}</td>
+          `).join("")}
+          <td class="score-muted">${player.played}</td>
+          <td class="score-muted">${formatScore(player.totalBestScore)}</td>
+        </tr>
+      `).join("");
+
+      tbody.querySelectorAll(".medal-count.has-medal").forEach(cell => {
+        const player = ranking.find(p => p.player_id === cell.dataset.playerId);
+        const medal = cell.dataset.medal;
+
+        cell.addEventListener("mouseenter", event => showScoreTooltip(event, player, medal, regionNameMap));
+        cell.addEventListener("mousemove", positionScoreTooltip);
+        cell.addEventListener("mouseleave", hideScoreTooltip);
+      });
+    }
+
+    async function loadRanking() {
+      try {
+        const [config, attemptsText] = await Promise.all([
+          d3.json(CONFIG_URL_FOR_RANKING),
+          d3.text(SCORES_URL)
+        ]);
+
+        const regionNameMap = buildRegionNameMap(config);
+        const attempts = parseAttempts(attemptsText);
+        renderRanking(buildRanking(attempts), regionNameMap);
+      } catch (error) {
+        document.getElementById("medal-ranking").innerHTML =
+          `<tr><td class="player-cell" colspan="9">Could not load data/player_scores.tsv</td></tr>`;
+        console.error(error);
+      }
+    }
+
+    loadRanking();
+  </script>
 </body>
 </html>
