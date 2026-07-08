@@ -40,16 +40,17 @@
       position: relative;
       display: grid;
       place-items: center;
-      overflow: hidden;
-      height: min(78vh, 860px);
-      min-height: 460px;
+      overflow: visible;
+      height: min(130vh, 130vw);
+      min-height: 780px;
+      margin-bottom: 70px;
     }
 
     svg {
       width: min(130vh, 130vw);
-      height: min(98vh, 98vw);
-      min-width: 360px;
-      min-height: 360px;
+      height: min(130vh, 130vw);
+      min-width: 520px;
+      min-height: 520px;
       cursor: grab;
       user-select: none;
       touch-action: none;
@@ -180,7 +181,7 @@
 
     .leaderboard {
       max-width: 980px;
-      margin: -4px auto 42px;
+      margin: 90px auto 42px;
       padding: 0 16px 28px;
     }
 
@@ -291,8 +292,16 @@
       }
 
       #globe-wrap {
-        height: min(70vh, 720px);
-        min-height: 420px;
+        height: min(120vh, 120vw);
+        min-height: 620px;
+        margin-bottom: 50px;
+      }
+
+      svg {
+        width: min(130vh, 130vw);
+        height: min(130vh, 130vw);
+        min-width: 460px;
+        min-height: 460px;
       }
 
       .leaderboard-header {
