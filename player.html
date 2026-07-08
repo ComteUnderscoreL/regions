@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Regions — Player</title>
+  <title>Regions Player</title>
   <style>
     html, body {
       margin: 0;
@@ -161,7 +161,7 @@
 
     .table-wrap {
       max-width: 980px;
-      margin: -12px auto 40px;
+      margin: 46px auto 40px;
       padding: 0 16px;
     }
 
@@ -243,7 +243,7 @@
       }
 
       .table-wrap {
-        margin-top: 0;
+        margin-top: 34px;
       }
 
       .bottom-link {
@@ -297,13 +297,13 @@
     const selectedPlayerId = params.get("id") || "ted";
 
     const medalInfo = {
-      none:      { label: "Not played", color: "#cfc6ad", icon: "" },
-      copper:    { label: "Copper",     color: "#b87333", icon: MEDAL_BASE_URL + "copper.svg" },
-      iron:      { label: "Iron",       color: "#b8b8b8", icon: MEDAL_BASE_URL + "iron.svg" },
-      gold:      { label: "Gold",       color: "#f2b705", icon: MEDAL_BASE_URL + "gold.svg" },
-      diamond:   { label: "Diamond",    color: "#6ee7ff", icon: MEDAL_BASE_URL + "diamond.svg" },
-      emerald:   { label: "Emerald",    color: "#50c878", icon: MEDAL_BASE_URL + "emerald.svg" },
-      netherite: { label: "Netherite",  color: "#2b2430", icon: MEDAL_BASE_URL + "netherite.svg" }
+      none:      { label: "Not played", color: "#cfc6ad", icon: "", rule: "No score yet" },
+      copper:    { label: "Copper",     color: "#b87333", icon: MEDAL_BASE_URL + "copper.svg", rule: "5,000+" },
+      iron:      { label: "Iron",       color: "#b8b8b8", icon: MEDAL_BASE_URL + "iron.svg", rule: "15,000+" },
+      gold:      { label: "Gold",       color: "#f2b705", icon: MEDAL_BASE_URL + "gold.svg", rule: "22,500+" },
+      diamond:   { label: "Diamond",    color: "#6ee7ff", icon: MEDAL_BASE_URL + "diamond.svg", rule: "25,000" },
+      emerald:   { label: "Emerald",    color: "#50c878", icon: MEDAL_BASE_URL + "emerald.svg", rule: "25,000 · 5:00–10:00" },
+      netherite: { label: "Netherite",  color: "#2b2430", icon: MEDAL_BASE_URL + "netherite.svg", rule: "25,000 · <5:00" }
     };
 
     const svg = d3.select("#globe");
@@ -482,17 +482,16 @@
       tooltipPosition(event);
     }
 
-    function showMedalTooltip(event, region, best) {
-      const medal = medalForAttempt(best);
-      const medalLabel = medalInfo[medal].label;
+    function showMedalTooltip(event, medal) {
+      const info = medalInfo[medal] || medalInfo.none;
 
       tooltip
         .style("display", "block")
         .html(`
-          <strong>${region.name}</strong>
+          <strong>${info.label}</strong>
           <span class="tooltip-line">
             ${medalHtml(medal, "tooltip-medal-icon")}
-            <span>${formatScore(best?.score)} · ${formatTime(best?.time_seconds)} · ${medalLabel}</span>
+            <span>${info.rule}</span>
           </span>
         `);
 
@@ -603,7 +602,7 @@
       const playerAttempts = attempts.filter(row => row.player_id === selectedPlayerId);
       const playerName = playerAttempts[0]?.player || selectedPlayerId;
 
-      document.title = `${playerName} — Regions`;
+      document.title = `${playerName} - Regions`;
       document.getElementById("player-title").textContent = playerName;
 
       playerAttempts.forEach(attempt => {
@@ -651,10 +650,10 @@
       }).join("");
 
       tbody.querySelectorAll(".medal").forEach(cell => {
-        const region = allRegionsConfig.find(r => r.id === cell.dataset.regionId);
         const best = bestByRegion.get(cell.dataset.regionId);
+        const medal = medalForAttempt(best);
 
-        cell.addEventListener("mouseenter", event => showMedalTooltip(event, region, best));
+        cell.addEventListener("mouseenter", event => showMedalTooltip(event, medal));
         cell.addEventListener("mousemove", event => tooltipPosition(event));
         cell.addEventListener("mouseleave", hideTooltip);
       });
