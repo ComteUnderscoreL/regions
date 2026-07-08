@@ -5,50 +5,260 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Regions — Player</title>
   <style>
-    html, body { margin:0; min-height:100%; background:#101820; color:white; font-family:system-ui,Arial,sans-serif; }
-    body { overflow-x:hidden; }
-    header { padding:18px 22px 8px; text-align:center; z-index:2; }
-    h1 { margin:0; font-size:clamp(28px,4vw,52px); letter-spacing:.04em; }
-    .subtitle { margin-top:6px; color:#c8d5df; font-size:15px; }
-    #stats { display:flex; justify-content:center; flex-wrap:wrap; gap:10px; margin:14px auto 0; padding:0 16px; max-width:900px; }
-    .stat-card { background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.16); border-radius:14px; padding:10px 14px; min-width:110px; text-align:center; }
-    .stat-card strong { display:block; font-size:20px; }
-    .stat-card span { display:block; margin-top:2px; color:rgba(255,255,255,.68); font-size:12px; }
-    #globe-wrap { position:relative; display:grid; place-items:center; overflow:hidden; height:min(74vh,820px); min-height:460px; }
-    svg { width:min(130vh,130vw); height:min(78vh,96vw); min-width:360px; min-height:360px; cursor:grab; user-select:none; touch-action:none; }
-    svg:active { cursor:grabbing; }
-    .sphere { fill:#15324a; stroke:#7fa4c2; stroke-width:1.2; }
-    .graticule { fill:none; stroke:rgba(255,255,255,.18); stroke-width:.5; }
-    .land-base { fill:#d8d0b8; stroke:none; }
-    .land-outline { fill:none; stroke:#26342b; stroke-width:.55; pointer-events:none; }
-    .region-player { stroke:white; stroke-width:1.65; cursor:pointer; pointer-events:all; }
-    .region-player:hover { stroke-width:2.8; filter:drop-shadow(0 0 7px rgba(255,255,255,.75)); }
-    .arctic-circle { fill:none; stroke:#fff; stroke-width:1.45; stroke-dasharray:5 5; opacity:.85; pointer-events:none; }
-    .tooltip { position:fixed; display:none; pointer-events:none; background:rgba(12,18,25,.94); color:white; border:1px solid rgba(255,255,255,.25); border-radius:10px; padding:9px 11px; font-size:14px; box-shadow:0 8px 25px rgba(0,0,0,.35); z-index:10; max-width:280px; }
-    .tooltip strong { display:block; font-size:15px; margin-bottom:3px; }
-    .legend { display:flex; justify-content:center; flex-wrap:wrap; gap:8px; margin:-4px auto 16px; padding:0 16px; max-width:900px; }
-    .legend-item { display:inline-flex; align-items:center; gap:6px; font-size:12px; color:rgba(255,255,255,.78); background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.13); border-radius:999px; padding:5px 9px; }
-    .legend-swatch { width:12px; height:12px; border-radius:50%; border:1px solid rgba(255,255,255,.45); display:inline-block; }
-    .legend-medal-icon { width:18px; height:18px; display:inline-block; vertical-align:middle; }
-    .table-wrap { max-width:980px; margin:0 auto 40px; padding:0 16px; }
-    table { width:100%; border-collapse:collapse; overflow:hidden; border-radius:14px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.14); }
-    th,td { padding:10px 12px; border-bottom:1px solid rgba(255,255,255,.10); text-align:left; font-size:14px; }
-    th { color:rgba(255,255,255,.72); font-weight:600; background:rgba(255,255,255,.06); }
-    tr:last-child td { border-bottom:none; }
-    a { color:inherit; }
-    .medal { font-weight:700; white-space:nowrap; }
-    .medal-icon { width:28px; height:28px; vertical-align:middle; display:inline-block; }
-    .tooltip-medal-icon { width:22px; height:22px; vertical-align:middle; display:inline-block; }
-    .tooltip-line { display:inline-flex; align-items:center; gap:7px; margin-top:4px; }
-    .bottom-link { position:fixed; left:16px; bottom:14px; color:rgba(255,255,255,.55); font-size:13px; z-index:2; text-decoration:none; }
-    .bottom-link:hover { color:rgba(255,255,255,.9); text-decoration:underline; }
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background: #101820;
+      color: white;
+      font-family: system-ui, Arial, sans-serif;
+    }
+
+    body { overflow-x: hidden; }
+
+    header {
+      padding: 18px 22px 0;
+      text-align: center;
+      z-index: 2;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 52px);
+      letter-spacing: 0.04em;
+      border: none;
+    }
+
+    .subtitle {
+      margin-top: 6px;
+      color: #c8d5df;
+      font-size: 15px;
+    }
+
+    #stats {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 14px auto 0;
+      padding: 0 16px;
+      max-width: 900px;
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 14px;
+      padding: 10px 14px;
+      min-width: 110px;
+      text-align: center;
+    }
+
+    .stat-card strong {
+      display: block;
+      font-size: 20px;
+    }
+
+    .stat-card span {
+      display: block;
+      margin-top: 2px;
+      color: rgba(255,255,255,0.68);
+      font-size: 12px;
+    }
+
+    #globe-wrap {
+      position: relative;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      height: min(84vh, 900px);
+      min-height: 520px;
+    }
+
+    svg {
+      width: min(130vh, 130vw);
+      height: min(130vh, 130vw);
+      min-width: 520px;
+      min-height: 520px;
+      cursor: grab;
+      user-select: none;
+      touch-action: none;
+    }
+
+    svg:active { cursor: grabbing; }
+
+    .sphere {
+      fill: #15324a;
+      stroke: #7fa4c2;
+      stroke-width: 1.2;
+    }
+
+    .graticule {
+      fill: none;
+      stroke: rgba(255,255,255,0.18);
+      stroke-width: 0.5;
+    }
+
+    .land-base {
+      fill: #d8d0b8;
+      stroke: none;
+    }
+
+    .land-outline {
+      fill: none;
+      stroke: #26342b;
+      stroke-width: 0.55;
+      pointer-events: none;
+    }
+
+    .region-player {
+      stroke: white;
+      stroke-width: 1.65;
+      cursor: pointer;
+      pointer-events: all;
+    }
+
+    .region-player:hover {
+      stroke-width: 2.8;
+      filter: drop-shadow(0 0 7px rgba(255,255,255,0.75));
+    }
+
+    .arctic-circle {
+      fill: none;
+      stroke: #ffffff;
+      stroke-width: 1.45;
+      stroke-dasharray: 5 5;
+      opacity: 0.85;
+      pointer-events: none;
+    }
+
+    .tooltip {
+      position: fixed;
+      display: none;
+      pointer-events: none;
+      background: rgba(12,18,25,0.94);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 14px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.35);
+      z-index: 20;
+      max-width: 320px;
+    }
+
+    .tooltip strong {
+      display: block;
+      font-size: 15px;
+      margin-bottom: 3px;
+    }
+
+    .tooltip-line {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 4px;
+    }
+
+    .table-wrap {
+      max-width: 980px;
+      margin: -12px auto 40px;
+      padding: 0 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.14);
+    }
+
+    th, td {
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.10);
+      text-align: left;
+      font-size: 14px;
+    }
+
+    th {
+      color: rgba(255,255,255,0.72);
+      font-weight: 600;
+      background: rgba(255,255,255,0.06);
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    a { color: inherit; }
+
+    .medal {
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .medal-icon {
+      width: 28px;
+      height: 28px;
+      vertical-align: middle;
+      display: inline-block;
+      cursor: help;
+    }
+
+    .tooltip-medal-icon {
+      width: 22px;
+      height: 22px;
+      vertical-align: middle;
+      display: inline-block;
+    }
+
+    .bottom-link {
+      position: fixed;
+      left: 16px;
+      bottom: 14px;
+      color: rgba(255,255,255,0.55);
+      font-size: 13px;
+      z-index: 2;
+      text-decoration: none;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
+    .bottom-link:hover {
+      color: rgba(255,255,255,0.9);
+      text-decoration: underline;
+    }
+
+    @media (max-width: 700px) {
+      #globe-wrap {
+        height: min(76vh, 760px);
+        min-height: 460px;
+      }
+
+      svg {
+        width: min(130vh, 130vw);
+        height: min(130vh, 130vw);
+        min-width: 460px;
+        min-height: 460px;
+      }
+
+      .table-wrap {
+        margin-top: 0;
+      }
+
+      .bottom-link {
+        position: static;
+        display: block;
+        margin: 0 16px 16px;
+      }
+    }
   </style>
 </head>
 
 <body>
   <header>
     <h1 id="player-title">Player</h1>
-    <div class="subtitle">Regional challenge progress</div>
+    <div class="subtitle">Explorer progress</div>
     <div id="stats"></div>
   </header>
 
@@ -57,12 +267,16 @@
     <div id="tooltip" class="tooltip"></div>
   </main>
 
-  <div class="legend" id="legend"></div>
-
   <div class="table-wrap">
     <table>
       <thead>
-        <tr><th>Region</th><th>Best score</th><th>Time</th><th>Medal</th><th>Challenge</th></tr>
+        <tr>
+          <th>Region</th>
+          <th>Best score</th>
+          <th>Time</th>
+          <th>Medal</th>
+          <th>Challenge</th>
+        </tr>
       </thead>
       <tbody id="score-table"></tbody>
     </table>
@@ -77,18 +291,19 @@
     const SCORES_URL = "data/player_scores.tsv?v=2";
     const LAND_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/land-110m.json";
     const CHALLENGE_BASE_URL = "https://www.geoguessr.com/challenge/";
+    const MEDAL_BASE_URL = "https://raw.githubusercontent.com/ComteUnderscoreL/geostats/main/medal/";
 
     const params = new URLSearchParams(window.location.search);
     const selectedPlayerId = params.get("id") || "ted";
 
     const medalInfo = {
-      none:      { label: "Not played", color: "rgba(255,255,255,0.05)", icon: "" },
-      copper:    { label: "Copper",     color: "#b87333", icon: "medal/copper.svg" },
-      iron:      { label: "Iron",       color: "#b8b8b8", icon: "medal/iron.svg" },
-      gold:      { label: "Gold",       color: "#f2b705", icon: "medal/gold.svg" },
-      diamond:   { label: "Diamond",    color: "#6ee7ff", icon: "medal/diamond.svg" },
-      emerald:   { label: "Emerald",    color: "#50c878", icon: "medal/emerald.svg" },
-      netherite: { label: "Netherite",  color: "#2b2430", icon: "medal/netherite.svg" }
+      none:      { label: "Not played", color: "#cfc6ad", icon: "" },
+      copper:    { label: "Copper",     color: "#b87333", icon: MEDAL_BASE_URL + "copper.svg" },
+      iron:      { label: "Iron",       color: "#b8b8b8", icon: MEDAL_BASE_URL + "iron.svg" },
+      gold:      { label: "Gold",       color: "#f2b705", icon: MEDAL_BASE_URL + "gold.svg" },
+      diamond:   { label: "Diamond",    color: "#6ee7ff", icon: MEDAL_BASE_URL + "diamond.svg" },
+      emerald:   { label: "Emerald",    color: "#50c878", icon: MEDAL_BASE_URL + "emerald.svg" },
+      netherite: { label: "Netherite",  color: "#2b2430", icon: MEDAL_BASE_URL + "netherite.svg" }
     };
 
     const svg = d3.select("#globe");
@@ -102,94 +317,207 @@
     let bestByRegion = new Map();
     let allRegionsConfig = [];
 
-    const projection = d3.geoOrthographic().scale(currentScale).translate([width/2,height/2]).rotate(rotation).clipAngle(90);
+    const projection = d3.geoOrthographic()
+      .scale(currentScale)
+      .translate([width / 2, height / 2])
+      .rotate(rotation)
+      .clipAngle(90);
+
     const path = d3.geoPath(projection);
     const graticule = d3.geoGraticule10();
     const sphere = { type: "Sphere" };
-    const arcticCircle = { type:"LineString", coordinates:d3.range(-180,181,1).map(lon => [lon,66.5636]) };
+
+    const arcticCircle = {
+      type: "LineString",
+      coordinates: d3.range(-180, 181, 1).map(lon => [lon, 66.5636])
+    };
 
     const g = svg.append("g");
-    g.append("path").datum(sphere).attr("class","sphere");
-    g.append("path").datum(graticule).attr("class","graticule");
+
+    g.append("path").datum(sphere).attr("class", "sphere");
+    g.append("path").datum(graticule).attr("class", "graticule");
 
     const defs = svg.select("defs");
-    const landClip = defs.append("clipPath").attr("id","landClip");
+
+    const landClip = defs.append("clipPath").attr("id", "landClip");
     const landClipPath = landClip.append("path");
 
-    const landBasePath = g.append("path").attr("class","land-base");
-    const regionGroup = g.append("g").attr("clip-path","url(#landClip)");
+    const landBasePath = g.append("path").attr("class", "land-base");
+
+    const regionGroup = g.append("g").attr("clip-path", "url(#landClip)");
     const oceanRegionGroup = g.append("g");
-    const landOutlinePath = g.append("path").attr("class","land-outline");
-    const arcticPath = g.append("path").datum(arcticCircle).attr("class","arctic-circle");
+
+    const landOutlinePath = g.append("path").attr("class", "land-outline");
+    const arcticPath = g.append("path").datum(arcticCircle).attr("class", "arctic-circle");
 
     function reverseGeoJSONRings(obj) {
       const copy = JSON.parse(JSON.stringify(obj));
+
       function reverseGeometry(geom) {
         if (!geom) return;
-        if (geom.type === "Polygon") geom.coordinates = geom.coordinates.map(ring => [...ring].reverse());
-        else if (geom.type === "MultiPolygon") geom.coordinates = geom.coordinates.map(poly => poly.map(ring => [...ring].reverse()));
-        else if (geom.type === "GeometryCollection") geom.geometries.forEach(reverseGeometry);
+
+        if (geom.type === "Polygon") {
+          geom.coordinates = geom.coordinates.map(ring => [...ring].reverse());
+        } else if (geom.type === "MultiPolygon") {
+          geom.coordinates = geom.coordinates.map(poly =>
+            poly.map(ring => [...ring].reverse())
+          );
+        } else if (geom.type === "GeometryCollection") {
+          geom.geometries.forEach(reverseGeometry);
+        }
       }
-      if (copy.type === "FeatureCollection") copy.features.forEach(f => reverseGeometry(f.geometry));
-      else if (copy.type === "Feature") reverseGeometry(copy.geometry);
-      else reverseGeometry(copy);
+
+      if (copy.type === "FeatureCollection") {
+        copy.features.forEach(f => reverseGeometry(f.geometry));
+      } else if (copy.type === "Feature") {
+        reverseGeometry(copy.geometry);
+      } else {
+        reverseGeometry(copy);
+      }
+
       return copy;
     }
 
-    function normalizeLon(lon) { return ((lon + 180) % 360 + 360) % 360 - 180; }
-    function clampLat(lat) { return Math.max(-89.5, Math.min(89.5, lat)); }
-    function formatScore(score) { if (!score || score <= 0) return "—"; return Number(score).toLocaleString("en-US"); }
+    function normalizeLon(lon) {
+      return ((lon + 180) % 360 + 360) % 360 - 180;
+    }
+
+    function clampLat(lat) {
+      return Math.max(-89.5, Math.min(89.5, lat));
+    }
+
+    function formatScore(score) {
+      if (!score || score <= 0) return "—";
+      return Number(score).toLocaleString("en-US");
+    }
+
     function formatTime(seconds) {
       if (!seconds || !isFinite(seconds)) return "—";
       seconds = Math.round(Number(seconds));
-      const m = Math.floor(seconds / 60), s = seconds % 60;
-      return `${m}:${String(s).padStart(2,"0")}`;
+      const m = Math.floor(seconds / 60);
+      const s = seconds % 60;
+      return `${m}:${String(s).padStart(2, "0")}`;
     }
 
     function medalForAttempt(attempt) {
       if (!attempt || !attempt.score) return "none";
-      const score = Number(attempt.score), time = Number(attempt.time_seconds);
+
+      const score = Number(attempt.score);
+      const time = Number(attempt.time_seconds);
+
       if (score === 25000 && time > 0 && time < 300) return "netherite";
       if (score === 25000 && time > 0 && time < 600) return "emerald";
       if (score === 25000) return "diamond";
       if (score >= 22500) return "gold";
       if (score >= 15000) return "iron";
       if (score >= 5000) return "copper";
-      return "none";
-    }
 
-    function medalHtml(medal, className) {
-      const info = medalInfo[medal] || medalInfo.none;
-      if (!info.icon) return `<span title="${info.label}">${info.label}</span>`;
-      return `<img src="${info.icon}" alt="${info.label}" title="${info.label}" class="${className}">`;
+      return "none";
     }
 
     function isBetterAttempt(newAttempt, oldAttempt) {
       if (!oldAttempt) return true;
-      const newScore = Number(newAttempt.score), oldScore = Number(oldAttempt.score);
+
+      const newScore = Number(newAttempt.score);
+      const oldScore = Number(oldAttempt.score);
+
       if (newScore > oldScore) return true;
       if (newScore < oldScore) return false;
-      return Number(newAttempt.time_seconds || Infinity) < Number(oldAttempt.time_seconds || Infinity);
+
+      const newTime = Number(newAttempt.time_seconds || Infinity);
+      const oldTime = Number(oldAttempt.time_seconds || Infinity);
+
+      return newTime < oldTime;
     }
 
-    function showTooltip(event, region) {
+    function medalHtml(medal, className) {
+      const info = medalInfo[medal] || medalInfo.none;
+
+      if (!info.icon) {
+        return `<span title="${info.label}">${info.label}</span>`;
+      }
+
+      return `<img src="${info.icon}" alt="${info.label}" title="${info.label}" class="${className}">`;
+    }
+
+    function tooltipPosition(event) {
+      const pad = 14;
+
+      let left = event.clientX + pad;
+      let top = event.clientY + pad;
+
+      tooltip
+        .style("left", `${left}px`)
+        .style("top", `${top}px`);
+
+      const rect = tooltip.node().getBoundingClientRect();
+
+      if (rect.right > window.innerWidth - 8) left = event.clientX - rect.width - pad;
+      if (rect.bottom > window.innerHeight - 8) top = event.clientY - rect.height - pad;
+
+      tooltip
+        .style("left", `${Math.max(8, left)}px`)
+        .style("top", `${Math.max(8, top)}px`);
+    }
+
+    function showRegionTooltip(event, region) {
       const best = bestByRegion.get(region.id);
       const medal = medalForAttempt(best);
-      const scoreLine = best ? `${formatScore(best.score)} · ${formatTime(best.time_seconds)} · ${medalInfo[medal].label}` : "Not played yet";
-      tooltip.style("display","block").style("left",`${event.clientX+14}px`).style("top",`${event.clientY+14}px`).html(`<strong>${region.name}</strong><span class="tooltip-line">${medalHtml(medal, "tooltip-medal-icon")}<span>${scoreLine}</span></span>`);
+      const medalLabel = medalInfo[medal].label;
+
+      const scoreLine = best
+        ? `${formatScore(best.score)} · ${formatTime(best.time_seconds)} · ${medalLabel}`
+        : "Not played yet";
+
+      tooltip
+        .style("display", "block")
+        .html(`
+          <strong>${region.name}</strong>
+          <span class="tooltip-line">
+            ${medalHtml(medal, "tooltip-medal-icon")}
+            <span>${scoreLine}</span>
+          </span>
+        `);
+
+      tooltipPosition(event);
     }
-    function hideTooltip() { tooltip.style("display","none"); }
+
+    function showMedalTooltip(event, region, best) {
+      const medal = medalForAttempt(best);
+      const medalLabel = medalInfo[medal].label;
+
+      tooltip
+        .style("display", "block")
+        .html(`
+          <strong>${region.name}</strong>
+          <span class="tooltip-line">
+            ${medalHtml(medal, "tooltip-medal-icon")}
+            <span>${formatScore(best?.score)} · ${formatTime(best?.time_seconds)} · ${medalLabel}</span>
+          </span>
+        `);
+
+      tooltipPosition(event);
+    }
+
+    function hideTooltip() {
+      tooltip.style("display", "none");
+    }
 
     function redraw() {
-      g.select(".sphere").attr("d",path);
-      g.select(".graticule").attr("d",path);
+      g.select(".sphere").attr("d", path);
+      g.select(".graticule").attr("d", path);
+
       if (landData) {
-        landBasePath.datum(landData).attr("d",path);
-        landOutlinePath.datum(landData).attr("d",path);
-        landClipPath.datum(landData).attr("d",path);
+        landBasePath.datum(landData).attr("d", path);
+        landOutlinePath.datum(landData).attr("d", path);
+        landClipPath.datum(landData).attr("d", path);
       }
-      regions.forEach(region => region.path.datum(region.geojson).attr("d",path));
-      arcticPath.attr("d",path);
+
+      regions.forEach(region => {
+        region.path.datum(region.geojson).attr("d", path);
+      });
+
+      arcticPath.attr("d", path);
     }
 
     function applyRotation(r) {
@@ -201,35 +529,59 @@
 
     function startSmoothLoop() {
       if (smoothTimer) return;
+
       smoothTimer = d3.timer(() => {
-        const ease = .18;
+        const ease = 0.18;
+
         let lonDiff = targetRotation[0] - rotation[0];
+
         if (lonDiff > 180) lonDiff -= 360;
         if (lonDiff < -180) lonDiff += 360;
+
         const latDiff = targetRotation[1] - rotation[1];
-        if (Math.abs(lonDiff) < .01 && Math.abs(latDiff) < .01) {
+
+        if (Math.abs(lonDiff) < 0.01 && Math.abs(latDiff) < 0.01) {
           applyRotation(targetRotation);
           smoothTimer.stop();
           smoothTimer = null;
           return;
         }
-        applyRotation([rotation[0] + lonDiff * ease, rotation[1] + latDiff * ease, 0]);
+
+        applyRotation([
+          rotation[0] + lonDiff * ease,
+          rotation[1] + latDiff * ease,
+          0
+        ]);
       });
     }
 
-    function setTargetRotation(r) { targetRotation = [normalizeLon(r[0]), clampLat(r[1]), 0]; startSmoothLoop(); }
+    function setTargetRotation(r) {
+      targetRotation = [normalizeLon(r[0]), clampLat(r[1]), 0];
+      startSmoothLoop();
+    }
+
     function setView(view) {
-      const views = { arctic:[0,-90,0], canada:[75,-68,0], atlantic:[24,-18,0] };
+      const views = {
+        arctic: [0, -90, 0],
+        canada: [75, -68, 0],
+        atlantic: [24, -18, 0]
+      };
+
       setTargetRotation(views[view] || views.canada);
     }
 
     function toggleSpin() {
       spinning = !spinning;
+
       if (spinning) {
-        if (smoothTimer) { smoothTimer.stop(); smoothTimer = null; }
+        if (smoothTimer) {
+          smoothTimer.stop();
+          smoothTimer = null;
+        }
+
         spinTimer = d3.timer(() => {
-          targetRotation = [normalizeLon(targetRotation[0] + .12), targetRotation[1], 0];
-          applyRotation([rotation[0] + .12, rotation[1], 0]);
+          targetRotation = [normalizeLon(targetRotation[0] + 0.12), targetRotation[1], 0];
+          applyRotation([rotation[0] + 0.12, rotation[1], 0]);
         });
       } else if (spinTimer) {
         spinTimer.stop();
@@ -238,26 +590,28 @@
     }
 
     function parseTsv(text) {
-      return d3.tsvParse(text).map(row => ({ ...row, score:Number(row.score || 0), time_seconds:Number(row.time_seconds || 0) }));
+      return d3.tsvParse(text).map(row => ({
+        ...row,
+        score: Number(row.score || 0),
+        time_seconds: Number(row.time_seconds || 0)
+      }));
     }
 
     function buildBestScores(attempts) {
       bestByRegion = new Map();
+
       const playerAttempts = attempts.filter(row => row.player_id === selectedPlayerId);
       const playerName = playerAttempts[0]?.player || selectedPlayerId;
+
+      document.title = `${playerName} — Regions`;
       document.getElementById("player-title").textContent = playerName;
+
       playerAttempts.forEach(attempt => {
         const old = bestByRegion.get(attempt.region_id);
-        if (isBetterAttempt(attempt, old)) bestByRegion.set(attempt.region_id, attempt);
+        if (isBetterAttempt(attempt, old)) {
+          bestByRegion.set(attempt.region_id, attempt);
+        }
       });
-    }
-
-    function renderLegend() {
-      const order = ["copper","iron","gold","diamond","emerald","netherite","none"];
-      document.getElementById("legend").innerHTML = order.map(key => {
-        const info = medalInfo[key];
-        return `<span class="legend-item">${info.icon ? `<img src="${info.icon}" alt="${info.label}" title="${info.label}" class="legend-medal-icon">` : `<span class="legend-swatch" style="background:${info.color}"></span>`}${info.label}</span>`;
-      }).join("");
     }
 
     function renderStats() {
@@ -265,57 +619,86 @@
       const played = bests.length;
       const perfects = bests.filter(a => Number(a.score) === 25000).length;
       const totalScore = bests.reduce((sum, a) => sum + Number(a.score || 0), 0);
+
       document.getElementById("stats").innerHTML = `
         <div class="stat-card"><strong>${played}/${allRegionsConfig.length}</strong><span>regions played</span></div>
         <div class="stat-card"><strong>${perfects}</strong><span>perfects</span></div>
-        <div class="stat-card"><strong>${formatScore(totalScore)}</strong><span>total best score</span></div>
+        <div class="stat-card"><strong>${formatScore(totalScore)}</strong><span>total</span></div>
       `;
     }
 
     function renderTable() {
       const tbody = document.getElementById("score-table");
+
       tbody.innerHTML = allRegionsConfig.map(region => {
         const best = bestByRegion.get(region.id);
         const medal = medalForAttempt(best);
         const info = medalInfo[medal];
-        const color = info.color;
         const challengeId = best?.challenge_id || "";
         const challengeUrl = challengeId ? `${CHALLENGE_BASE_URL}${challengeId}` : region.challenge_url;
-        return `<tr>
-          <td>${region.name}</td>
-          <td>${formatScore(best?.score)}</td>
-          <td>${formatTime(best?.time_seconds)}</td>
-          <td class="medal" style="color:${color}">${medalHtml(medal, "medal-icon")}</td>
-          <td>${challengeUrl ? `<a href="${challengeUrl}" target="_blank">open</a>` : "—"}</td>
-        </tr>`;
+
+        return `
+          <tr>
+            <td>${region.name}</td>
+            <td>${formatScore(best?.score)}</td>
+            <td>${formatTime(best?.time_seconds)}</td>
+            <td class="medal" style="color:${info.color}" data-region-id="${region.id}">
+              ${medalHtml(medal, "medal-icon")}
+            </td>
+            <td>${challengeUrl ? `<a href="${challengeUrl}" target="_blank">open</a>` : "—"}</td>
+          </tr>
+        `;
       }).join("");
+
+      tbody.querySelectorAll(".medal").forEach(cell => {
+        const region = allRegionsConfig.find(r => r.id === cell.dataset.regionId);
+        const best = bestByRegion.get(cell.dataset.regionId);
+
+        cell.addEventListener("mouseenter", event => showMedalTooltip(event, region, best));
+        cell.addEventListener("mousemove", event => tooltipPosition(event));
+        cell.addEventListener("mouseleave", hideTooltip);
+      });
     }
 
-    let dragStart = null, dragStartRotation = null;
+    let dragStart = null;
+    let dragStartRotation = null;
 
     svg.call(d3.drag()
       .on("start", event => {
         if (spinning) toggleSpin();
-        if (smoothTimer) { smoothTimer.stop(); smoothTimer = null; }
+
+        if (smoothTimer) {
+          smoothTimer.stop();
+          smoothTimer = null;
+        }
+
         hideTooltip();
-        dragStart = [event.x,event.y];
+
+        dragStart = [event.x, event.y];
         dragStartRotation = [...rotation];
         targetRotation = [...rotation];
       })
       .on("drag", event => {
         const zoomFactor = currentScale / baseScale;
-        const speed = .35 / zoomFactor;
-        const dx = event.x - dragStart[0], dy = event.y - dragStart[1];
+        const speed = 0.35 / zoomFactor;
+
+        const dx = event.x - dragStart[0];
+        const dy = event.y - dragStart[1];
+
         const newLon = dragStartRotation[0] + dx * speed;
         const newLat = dragStartRotation[1] - dy * speed;
+
         targetRotation = [normalizeLon(newLon), clampLat(newLat), 0];
         applyRotation(targetRotation);
       })
-      .on("end", () => { dragStart = null; dragStartRotation = null; })
+      .on("end", () => {
+        dragStart = null;
+        dragStartRotation = null;
+      })
     );
 
     svg.call(d3.zoom()
-      .scaleExtent([.6,8])
+      .scaleExtent([0.6, 8])
       .filter(event => event.type === "wheel")
       .on("zoom", event => {
         currentScale = baseScale * event.transform.k;
@@ -337,11 +720,15 @@
 
       allRegionsConfig = config.regions;
       buildBestScores(parseTsv(attemptsText));
+
       landData = topojson.feature(world, world.objects.land);
 
       for (const item of config.regions) {
         let geojson = await d3.json(item.geojson);
-        if (item.needsReverse) geojson = reverseGeoJSONRings(geojson);
+
+        if (item.needsReverse) {
+          geojson = reverseGeoJSONRings(geojson);
+        }
 
         const best = bestByRegion.get(item.id);
         const medal = medalForAttempt(best);
@@ -350,28 +737,32 @@
         const targetGroup = clipToLand ? regionGroup : oceanRegionGroup;
 
         const regionPath = targetGroup.append("path")
-          .attr("class","region-player")
-          .attr("fill",fillColor)
-          .attr("fill-opacity",medal === "none" ? .35 : .78)
-          .on("mouseenter", event => showTooltip(event,item))
-          .on("mousemove", event => showTooltip(event,item))
+          .attr("class", "region-player")
+          .attr("fill", fillColor)
+          .attr("fill-opacity", 1)
+          .on("mouseenter", event => showRegionTooltip(event, item))
+          .on("mousemove", event => showRegionTooltip(event, item))
           .on("mouseleave", hideTooltip)
           .on("click", () => {
             const challengeId = best?.challenge_id;
             const url = challengeId ? `${CHALLENGE_BASE_URL}${challengeId}` : item.challenge_url;
-            if (url) window.open(url,"_blank");
+            if (url) window.open(url, "_blank");
           });
 
-        regions.push({ ...item, geojson, path:regionPath });
+        regions.push({
+          ...item,
+          geojson,
+          path: regionPath
+        });
       }
 
-      renderLegend();
       renderStats();
       renderTable();
       redraw();
     }
 
     load();
+
     window.setView = setView;
     window.toggleSpin = toggleSpin;
   </script>
