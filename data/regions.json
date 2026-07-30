@@ -1,5 +1,18 @@
 {
-  "regions": [
+  "regions": 
+      {
+    "id": "kosovo",
+    "name": "Kosova<br>Kosovo",
+    "geojson": "kosovo.geojson",
+    "flag": "kosovo.png",
+    "label": [
+      20.9,
+      42.6
+    ],
+    "challenge_url": "",
+    "needsReverse": true
+  }
+,
     {
       "id": "nunavik",
       "name": "ᓄᓇᕕᒃ<br>Nunavik",
