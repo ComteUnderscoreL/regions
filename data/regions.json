@@ -4,7 +4,7 @@
     "id": "kosovo",
     "name": "Kosova<br>Kosovo",
     "geojson": "geojson/kosovo.geojson",
-    "flag": "kosovo.svg",
+    "flag": "flags/kosovo.svg",
     "label": [20.9,42.6],
     "challenge_url": "",
     "needsReverse": true
