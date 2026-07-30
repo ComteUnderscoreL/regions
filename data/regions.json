@@ -5,15 +5,11 @@
     "name": "Kosova<br>Kosovo",
     "geojson": "kosovo.geojson",
     "flag": "kosovo.svg",
-    "label": [
-      20.9,
-      42.6
-    ],
+    "label": [20.9,42.6],
     "challenge_url": "",
     "needsReverse": true
-  }
-,
-    {
+  },
+  {
       "id": "nunavik",
       "name": "ᓄᓇᕕᒃ<br>Nunavik",
       "geojson": "geojson/nunavik.geojson",
