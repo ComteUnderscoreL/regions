@@ -5,7 +5,7 @@
     "name": "Val d’Outa<br>Vallée d’Aoste<br>Valle d’Aosta",
     "geojson": "geojson/aosta.geojson",
     "flag": "flags/aosta.svg",
-    "label": [7.378,45.7213],
+    "label": [7.378, 45.7213],
     "challenge_url": "https://www.geoguessr.com/challenge/vLRyp86L4UdIm8vi",
     "needsReverse": true
     },
@@ -14,7 +14,7 @@
     "name": "Kosova<br>Kosovo",
     "geojson": "geojson/kosovo.geojson",
     "flag": "flags/kosovo.svg",
-    "label": [20.9,42.6],
+    "label": [20.9, 42.6],
     "challenge_url": "https://www.geoguessr.com/challenge/wukt6oWx0O7LEgp0",
     "needsReverse": true
   },
