@@ -3,11 +3,11 @@
     {
     "id": "aosta",
     "name": "Val d’Outa<br>Vallée d’Aoste<br>Valle d’Aosta",
-    "geojson": "aosta.geojson",
-    "flag": "aosta.svg",
+    "geojson": "geojson/aosta.geojson",
+    "flag": "flags/aosta.svg",
     "label": [7.378,45.7213],
     "challenge_url": "https://www.geoguessr.com/challenge/vLRyp86L4UdIm8vi",
-    "needsReverse": false
+    "needsReverse": true
     },
     {
     "id": "kosovo",
