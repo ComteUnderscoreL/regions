@@ -56,7 +56,7 @@
     },
     {
   "id": "scilly",
-  "name": "Isles of Scilly<br>Enesek Syllan<br>îles Sorlingues",
+  "name": "Isles of Scilly<br>Enesek Syllan<br>Îles Sorlingues",
   "geojson": "geojson/scilly.geojson",
   "flag": "flags/scilly.svg",
   "label": [-6.31, 49.93],
