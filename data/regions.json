@@ -73,6 +73,16 @@
   "challenge_url": "https://www.geoguessr.com/challenge/KeMKi5Kza6jC7plG",
   "needsReverse": true,
   "clipToLand": false
+    },
+    {
+  "id": "wight",
+  "name": "Isle of Wight",
+  "geojson": "geojson/wight.geojson",
+  "flag": "flags/wight.svg",
+  "label": [-1.3, 50.67],
+  "challenge_url": "",
+  "needsReverse": true,
+  "clipToLand": false
     }
   ]
 }
