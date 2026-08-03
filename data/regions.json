@@ -1,6 +1,15 @@
 {
   "regions": [
     {
+  "id": "cornwall",
+  "name": "Kernow<br>Cornwall<br>Cornouailles",
+  "geojson": "geojson/cornwall.geojson",
+  "flag": "flags/cornwall.svg",
+  "label": [-4.75, 50.42],
+  "challenge_url": "",
+  "needsReverse": true
+    },
+    {
     "id": "aosta",
     "name": "Val d’Outa<br>Vallée d’Aoste<br>Valle d’Aosta",
     "geojson": "geojson/aosta.geojson",
