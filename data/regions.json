@@ -55,6 +55,16 @@
       "needsReverse": true
     },
     {
+  "id": "scilly",
+  "name": "Isles of Scilly",
+  "geojson": "geojson/scilly.geojson",
+  "flag": "flags/scilly.svg",
+  "label": [-6.31, 49.93],
+  "challenge_url": "",
+  "needsReverse": true,
+  "clipToLand": false
+    },
+    {
   "id": "capeverde",
   "name": "Cabo Verde<br>Cap-Vert",
   "geojson": "geojson/capeverde.geojson",
