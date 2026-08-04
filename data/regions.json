@@ -64,6 +64,15 @@
       "needsReverse": true
     },
     {
+  "id": "setomaa",
+  "name": "Setomaa",
+  "geojson": "geojson/setomaa.geojson",
+  "flag": "flags/setomaa.svg",
+  "label": [27.46, 57.91],
+  "challenge_url": "",
+  "needsReverse": true
+    },
+    {
   "id": "scilly",
   "name": "Isles of Scilly<br>Enesek Syllan<br>Îles Sorlingues",
   "geojson": "geojson/scilly.geojson",
