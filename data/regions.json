@@ -56,7 +56,7 @@
     },
     {
   "id": "valais",
-  "name": "Valais<br>Wallis",
+  "name": "Valais<br>Wallis<br>Valês",
   "geojson": "geojson/valais.geojson",
   "flag": "flags/valais.svg",
   "label": [7.61, 46.19],
