@@ -28,6 +28,15 @@
     "needsReverse": true
     },
     {
+  "id": "pays-de-gex",
+  "name": "Pays de Gex",
+  "geojson": "geojson/gex.geojson",
+  "flag": "flags/gex.svg",
+  "label": [6.06, 46.28],
+  "challenge_url": "",
+  "needsReverse": true
+    },
+    {
     "id": "kosovo",
     "name": "Kosova<br>Kosovo",
     "geojson": "geojson/kosovo.geojson",
