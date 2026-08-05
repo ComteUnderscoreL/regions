@@ -1,6 +1,15 @@
 {
   "regions": [
     {
+  "id": "basque",
+  "name": "Euskal Herria<br>País Vasco<br>Pays basque",
+  "geojson": "geojson/basque.geojson",
+  "flag": "flags/basque.svg",
+  "label": [-1.6, 43.05],
+  "challenge_url": "",
+  "needsReverse": true
+   },
+    {
   "id": "cornwall",
   "name": "Kernow<br>Cornwall<br>Cornouailles",
   "geojson": "geojson/cornwall.geojson",
