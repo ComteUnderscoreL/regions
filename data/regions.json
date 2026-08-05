@@ -61,7 +61,7 @@
   "flag": "flags/valais.svg",
   "label": [7.61, 46.19],
   "challenge_url": "",
-  "needsReverse": true
+  "needsReverse": false
   },
   {
       "id": "nunavik",
