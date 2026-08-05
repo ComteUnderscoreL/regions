@@ -28,7 +28,7 @@
     "needsReverse": true
     },
     {
-  "id": "pays-de-gex",
+  "id": "gex",
   "name": "Pays de Gex",
   "geojson": "geojson/gex.geojson",
   "flag": "flags/gex.svg",
