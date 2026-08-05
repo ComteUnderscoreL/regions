@@ -53,6 +53,15 @@
   "label": [6.42, 45.72],
   "challenge_url": "",
   "needsReverse": true
+    },
+    {
+  "id": "valais",
+  "name": "Valais<br>Wallis",
+  "geojson": "geojson/valais.geojson",
+  "flag": "flags/valais.svg",
+  "label": [7.61, 46.19],
+  "challenge_url": "",
+  "needsReverse": true
   },
   {
       "id": "nunavik",
