@@ -29,7 +29,7 @@
     },
     {
   "id": "gex",
-  "name": "Pays de Gex",
+  "name": "Pays de Gex<br>Payis de Gèx",
   "geojson": "geojson/gex.geojson",
   "flag": "flags/gex.svg",
   "label": [6.06, 46.28],
