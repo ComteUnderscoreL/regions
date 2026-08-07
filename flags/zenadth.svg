@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 526" role="img" aria-labelledby="title desc">
+  <title id="title">Zenadth Kes flag</title>
+  <desc id="desc">Torres Strait Islander flag.</desc>
+  <rect width="1024" height="129" fill="#006747"/>
+  <rect y="129" width="1024" height="15" fill="#000"/>
+  <rect y="144" width="1024" height="241" fill="#012169"/>
+  <rect y="385" width="1024" height="15" fill="#000"/>
+  <rect y="400" width="1024" height="126" fill="#006747"/>
+
+  <!-- Dhari: cleaned and smoothed from the previous traced version -->
+  <path fill="#fff" d="
+    M 423 192
+    C 414 204, 407 219, 406 234
+    C 404 252, 406 273, 412 293
+    C 417 311, 425 329, 435 345
+    L 404 372
+    L 461 352
+    L 461 262
+    C 461 247, 468 236, 480 227
+    C 490 220, 500 217, 512 217
+    C 524 217, 534 220, 544 227
+    C 556 236, 562 248, 562 262
+    L 562 352
+    L 619 372
+    L 588 345
+    C 598 329, 606 311, 611 293
+    C 617 273, 619 252, 618 234
+    C 617 218, 610 203, 600 190
+    C 590 178, 577 169, 562 163
+    C 551 159, 539 156, 526 154
+    L 518 181
+    C 517 187, 515 194, 512 200
+    C 509 194, 507 187, 506 181
+    L 497 153
+    C 483 156, 470 160, 458 166
+    C 443 173, 432 182, 423 192
+    Z"/>
+
+  <!-- Five-point star, centered and regular -->
+  <path fill="#fff" d="M512 243
+    L520.7 269.8
+    L548.9 269.8
+    L526.1 286.4
+    L534.8 313.2
+    L512 296.6
+    L489.2 313.2
+    L497.9 286.4
+    L475.1 269.8
+    L503.3 269.8
+    Z"/>
+</svg>
