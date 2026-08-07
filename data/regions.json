@@ -157,6 +157,16 @@
   "challenge_url": "",
   "needsReverse": true,
   "clipToLand": false
+  },
+  {
+  "id": "tonga",
+  "name": "Tonga",
+  "geojson": "geojson/tonga.geojson",
+  "flag": "flags/tonga.svg",
+  "label": [-175.2, -21.2],
+  "challenge_url": "",
+  "needsReverse": true,
+  "clipToLand": false
   }
   ]
 }
