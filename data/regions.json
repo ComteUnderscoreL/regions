@@ -137,6 +137,16 @@
   "challenge_url": "",
   "needsReverse": true,
   "clipToLand": false
-    }
+    },
+    {
+  "id": "zenadth",
+  "name": "Zenadth Kes",
+  "geojson": "geojson/zenadth.geojson",
+  "flag": "flags/zenadth.svg",
+  "label": [142.2, -10.6],
+  "challenge_url": "",
+  "needsReverse": true,
+  "clipToLand": false
+  }
   ]
 }
