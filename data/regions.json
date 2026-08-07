@@ -147,6 +147,16 @@
   "challenge_url": "",
   "needsReverse": true,
   "clipToLand": false
+    },
+    {
+  "id": "niue",
+  "name": "Niue",
+  "geojson": "geojson/niue.geojson",
+  "flag": "flags/niue.svg",
+  "label": [-169.87, -19.05],
+  "challenge_url": "",
+  "needsReverse": true,
+  "clipToLand": false
   }
   ]
 }
