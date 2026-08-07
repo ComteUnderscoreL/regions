@@ -1,27 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="600" height="300" viewBox="0 0 120 60">
-<clipPath id="t">
-<path d="M0,0V15H70V30H60zM0,30V40H30V0H60z"/>
-</clipPath>
-<title>Flag of Niue</title>
-<rect width="120" height="60" fill="#012169"/>
-<g stroke="#c8102e" stroke-width="6">
-<path d="M0,0L60,30M60,0L0,30" stroke="#fff"/>
-<path d="M0,0L60,30M60,0L0,30" clip-path="url(#t)" stroke-width="4"/>
-<path d="M30,0V40M0,15H70" stroke="#fff" stroke-width="10"/>
-<path d="M30,0V40M0,15H70"/>
-</g>
-<path d="M60,0h60V60H0V30H60z" fill="#fedd00"/>
-<g transform="translate(30,15)">
-<g transform="scale(5.10390485)">
-<circle r="1" fill="#012169"/>
-<path id="s" d="M0,-513674 301930,415571 -488533,-158734H488533L-301930,415571" fill="#fedd00" transform="scale(0.00000194676)"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <title>Niue – circular flag icon</title>
+  <defs>
+    <clipPath id="circleClip">
+      <circle cx="256" cy="256" r="248"/>
+    </clipPath>
+    <clipPath id="cantonClip">
+      <rect x="48" y="60" width="224" height="168" rx="2"/>
+    </clipPath>
+    <path id="star" d="M0,-14 L3.29,-4.53 L13.31,-4.33 L5.32,1.73 L8.23,11.33 L0,5.6 L-8.23,11.33 L-5.32,1.73 L-13.31,-4.33 L-3.29,-4.53 Z"/>
+  </defs>
 
-</g>
-<use xlink:href="#s" transform="translate(-17.5,0.29) scale(3)"/>
-<use xlink:href="#s" transform="translate(17.5,0.29) scale(3)"/>
-<use xlink:href="#s" transform="translate(0,10.29) scale(3)"/>
-<use xlink:href="#s" transform="translate(0,-9.71) scale(3)"/>
-</g>
+  <g clip-path="url(#circleClip)">
+    <rect width="512" height="512" fill="#FEDD00"/>
+
+    <!-- Union Jack canton, inset so the key details survive the circular crop -->
+    <g clip-path="url(#cantonClip)">
+      <rect x="48" y="60" width="224" height="168" fill="#012169"/>
+
+      <!-- white diagonals -->
+      <path d="M48 60 L272 228 M272 60 L48 228" stroke="#FFFFFF" stroke-width="34"/>
+      <!-- red diagonals -->
+      <path d="M48 60 L272 228 M272 60 L48 228" stroke="#C8102E" stroke-width="18"/>
+
+      <!-- white cross -->
+      <rect x="143" y="60" width="34" height="168" fill="#FFFFFF"/>
+      <rect x="48" y="127" width="224" height="34" fill="#FFFFFF"/>
+      <!-- red cross -->
+      <rect x="150" y="60" width="20" height="168" fill="#C8102E"/>
+      <rect x="48" y="134" width="224" height="20" fill="#C8102E"/>
+    </g>
+
+    <!-- Niue stars in the canton -->
+    <g transform="translate(160 144)">
+      <circle r="22" fill="#012169"/>
+      <use href="#star" fill="#FEDD00" transform="scale(0.95)"/>
+      <use href="#star" fill="#FEDD00" transform="translate(-73 0) scale(0.78)"/>
+      <use href="#star" fill="#FEDD00" transform="translate(73 0) scale(0.78)"/>
+      <use href="#star" fill="#FEDD00" transform="translate(0 -55) scale(0.78)"/>
+      <use href="#star" fill="#FEDD00" transform="translate(0 55) scale(0.78)"/>
+    </g>
+  </g>
 </svg>
