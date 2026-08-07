@@ -1,6 +1,15 @@
 {
   "regions": [
     {
+  "id": "alsace",
+  "name": "Elsàss<br>Alsace",
+  "geojson": "geojson/alsace.geojson",
+  "flag": "flags/alsace.svg",
+  "label": [7.45, 48.35],
+  "challenge_url": "",
+  "needsReverse": false
+    },
+    {
   "id": "basque",
   "name": "Euskal Herria<br>País Vasco<br>Pays basque",
   "geojson": "geojson/basque.geojson",
