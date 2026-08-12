@@ -176,6 +176,19 @@
   "challenge_url": "",
   "needsReverse": true,
   "clipToLand": false
+  },
+  {
+    "id": "helgoland",
+    "name": "Deät Lun<br>Helgoland",
+    "geojson": "geojson/helgoland.geojson",
+    "flag": "flags/helgoland.svg",
+    "label": [
+      7.8960376,
+      54.1832998
+    ],
+    "challenge_url": "",
+    "needsReverse": true,
+    "clipToLand": false
   }
   ]
 }
