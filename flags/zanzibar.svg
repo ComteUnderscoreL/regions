@@ -9,12 +9,10 @@
   </defs>
 
   <g clip-path="url(#circle)">
-    <!-- Prolongement des couleurs jusqu'au bord du disque -->
     <path d="M0 0h18v18H0z" fill="#1eb53a"/>
     <path d="M6.66 0H18v7.44H6.66z" fill="#0093cd"/>
     <path d="M0 7.44h18v3.12H0z"/>
 
-    <!-- Drapeau entier, sans deformation, inscrit dans le disque -->
     <g transform="translate(1.98 4.32) scale(.52)">
       <path d="m0 0h27v18H0" fill="#1eb53a"/>
       <g clip-path="url(#canton)">
