@@ -4,19 +4,19 @@
       <circle cx="9" cy="9" r="9"/>
     </clipPath>
     <clipPath id="canton">
-      <path d="M2.25 4.05h4.68v3.12H2.25z"/>
+      <path d="M0 0h6.92v7.15H0z"/>
     </clipPath>
   </defs>
 
   <g clip-path="url(#circle)">
     <path d="M0 0h18v18H0z" fill="#1eb53a"/>
-    <path d="M6.93 0H18v7.17H6.93z" fill="#0093cd"/>
-    <path d="M0 7.17h18v3.62H0z"/>
+    <path d="M6.92 0H18v7.15H6.92z" fill="#0093cd"/>
 
     <g clip-path="url(#canton)">
-      <path d="M2.25 7.17h4.68V4.05z" fill="#00a3dd"/>
-      <path d="M2.25 7.17 6.93 4.05" stroke="#fcd116" stroke-width="1.235" stroke-linecap="butt"/>
-      <path d="M2.25 7.17 6.93 4.05" stroke="#000" stroke-width=".845" stroke-linecap="butt"/>
+      <path d="M1.22 7.15h5.7v-3.8z" fill="#00a3dd"/>
+      <path d="M1.22 7.15 6.92 3.35" stroke="#fcd116" stroke-width="1.235" stroke-linecap="butt"/>
+      <path d="M1.22 7.15 6.92 3.35" stroke="#000" stroke-width=".845" stroke-linecap="butt"/>
     </g>
+    <path d="M0 7.15h18v3.62H0z"/>
   </g>
 </svg>
