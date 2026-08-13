@@ -189,6 +189,16 @@
     "challenge_url": "",
     "needsReverse": true,
     "clipToLand": false
-  }
+   },
+   {
+  "id": "rapanui",
+  "name": "Rapa Nui",
+  "geojson": "geojson/rapanui.geojson",
+  "flag": "flags/rapanui.svg",
+  "label": [-109.35, -27.12],
+  "challenge_url": "",
+  "needsReverse": true,
+  "clipToLand": false
+}
   ]
 }
