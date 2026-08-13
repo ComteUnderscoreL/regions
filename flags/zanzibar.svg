@@ -4,28 +4,23 @@
       <circle cx="9" cy="9" r="9"/>
     </clipPath>
     <clipPath id="canton">
-      <path d="M0 0h9v6H0z"/>
+      <path d="M0 0h9v7.17H0z"/>
     </clipPath>
   </defs>
 
   <g clip-path="url(#circle)">
-    <!-- Prolongement des couleurs jusqu'au bord du disque -->
-    <path d="M0 0h18v18H0z" fill="#1eb53a"/>
-    <path d="M6.93 0H18v7.17H6.93z" fill="#0093cd"/>
 
-    <!-- Drapeau entier, sans deformation, inscrit dans le disque -->
-    <g transform="translate(2.25 4.05) scale(.52)">
-      <path d="m0 0h27v18H0" fill="#1eb53a"/>
-      <g clip-path="url(#canton)">
-        <path d="m0 6h9v-6" fill="#00a3dd"/>
-        <path d="m0 6 9-6" stroke="#fcd116" stroke-width="2.375"/>
-        <path d="m0 6 9-6" stroke="#000" stroke-width="1.625"/>
-      </g>
-      <path d="m9 0v6h18V0" fill="#0093cd"/>
-      <path d="m0 6h27v6H0"/>
+    <path d="M0 0h18v18H0z" fill="#1eb53a"/>
+    <path d="M9 0h9v7.17H9z" fill="#0093cd"/>
+
+
+    <g clip-path="url(#canton)">
+      <path d="M0 7.17H9V0z" fill="#00a3dd"/>
+      <path d="M0 7.17 9 0" stroke="#fcd116" stroke-width="2.52"/>
+      <path d="M0 7.17 9 0" stroke="#000" stroke-width="1.72"/>
     </g>
 
-    <!-- Bande noire elargie de 0,5 sur toute la largeur -->
+
     <path d="M0 7.17h18v3.62H0z"/>
   </g>
 </svg>
