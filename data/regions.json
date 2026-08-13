@@ -94,7 +94,7 @@
       "id": "inupiat",
       "name": "Iñupiat Nunaat",
       "geojson": "geojson/inupiat.geojson",
-      "flag": "flags/inupiat.svg",
+      "flag": "flags/alaska.svg",
       "label": [-157.5, 69.2],
       "challenge_url": "https://www.geoguessr.com/challenge/A2G6fRnwTqelQ0m6",
       "needsReverse": true
@@ -182,10 +182,7 @@
     "name": "Deät Lun<br>Helgoland",
     "geojson": "geojson/helgoland.geojson",
     "flag": "flags/helgoland.svg",
-    "label": [
-      7.8960376,
-      54.1832998
-    ],
+    "label": [7.8960376,54.1832998],
     "challenge_url": "",
     "needsReverse": true,
     "clipToLand": false
@@ -199,6 +196,16 @@
   "challenge_url": "",
   "needsReverse": true,
   "clipToLand": false
-}
+   },
+   {
+  "id": "zanzibar",
+  "name": "Zanzibar",
+  "geojson": "geojson/zanzibar.geojson",
+  "flag": "flags/zanzibar.svg",
+  "label": [39.45, -5.75],
+  "challenge_url": "",
+  "needsReverse": true,
+  "clipToLand": false
+  }
   ]
 }
