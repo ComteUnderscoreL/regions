@@ -58,7 +58,7 @@
       "label": [20.9, 42.6],
       "challenge_url": "https://www.geoguessr.com/challenge/wukt6oWx0O7LEgp0",
       "needsReverse": true,
-      "visible": true
+      "visible": false
     },
     {
       "id": "savoie",
@@ -98,7 +98,7 @@
       "label": [4.7, 36.45],
       "challenge_url": "https://www.geoguessr.com/challenge/iyFklmzRrjlCos6O",
       "needsReverse": true,
-      "visible": true
+      "visible": false
     },
     {
       "id": "inupiat",
@@ -228,6 +228,67 @@
       "needsReverse": true,
       "clipToLand": false,
       "visible": true
+    },
+    {
+      "id": "aland",
+      "name": "Åland",
+      "geojson": "geojson/aland.geojson",
+      "flag": "flags/aland.svg",
+      "label": [19.9, 60.2],
+      "challenge_url": "",
+      "needsReverse": true,
+      "clipToLand": false,
+      "visible": false
+    },
+    {
+      "id": "montenegro",
+      "name": "Crna Gora<br>Montenegro",
+      "geojson": "geojson/montenegro.geojson",
+      "flag": "flags/montenegro.svg",
+      "label": [19.25, 42.75],
+      "challenge_url": "",
+      "needsReverse": true,
+      "visible": false
+    },
+    {
+      "id": "nagaland",
+      "name": "Nagaland",
+      "geojson": "geojson/nagaland.geojson",
+      "flag": "flags/nagaland.svg",
+      "label": [94.55, 26.15],
+      "challenge_url": "",
+      "needsReverse": true,
+      "visible": false
+    },
+    {
+      "id": "rojhilat",
+      "name": "Rojhilatê Kurdistanê<br>ڕۆژهەڵاتی کوردستان<br>Kurdistan iranien",
+      "geojson": "geojson/rojhilat.geojson",
+      "flag": "flags/kurdistan.svg",
+      "label": [46.3, 35.0],
+      "challenge_url": "",
+      "needsReverse": true,
+      "visible": false
+    },
+    {
+      "id": "nakhchivan",
+      "name": "Naxçıvan Muxtar Respublikası<br>Nakhitchevan",
+      "geojson": "geojson/nakhchivan.geojson",
+      "flag": "flags/azerbaijan.svg",
+      "label": [45.4, 39.2],
+      "challenge_url": "",
+      "needsReverse": true,
+      "visible": false
+    },
+    {
+      "id": "hokkaido",
+      "name": "北海道<br>Hokkaidō",
+      "geojson": "geojson/hokkaido.geojson",
+      "flag": "flags/hokkaido.svg",
+      "label": [142.8, 43.4],
+      "challenge_url": "",
+      "needsReverse": true,
+      "visible": false
     }
   ]
 }
