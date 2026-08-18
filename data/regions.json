@@ -258,7 +258,7 @@
       "label": [94.55, 26.15],
       "challenge_url": "",
       "needsReverse": true,
-      "visible": false
+      "visible": true
     },
     {
       "id": "rojhilat",
