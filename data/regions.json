@@ -98,7 +98,7 @@
       "label": [4.7, 36.45],
       "challenge_url": "https://www.geoguessr.com/challenge/iyFklmzRrjlCos6O",
       "needsReverse": true,
-      "visible": false
+      "visible": true
     },
     {
       "id": "inupiat",
@@ -258,12 +258,12 @@
       "label": [94.55, 26.15],
       "challenge_url": "",
       "needsReverse": false,
-      "visible": true
+      "visible": false
     },
     {
-      "id": "rojhilat",
-      "name": "Rojhilatê Kurdistanê<br>ڕۆژهەڵاتی کوردستان<br>Kurdistan iranien",
-      "geojson": "geojson/rojhilat.geojson",
+      "id": "kurdistan",
+      "name": "هەرێمی کوردستان<br>Herêmî Kurdistan<br>Kurdistan irakien",
+      "geojson": "geojson/kurdistan.geojson",
       "flag": "flags/kurdistan.svg",
       "label": [46.3, 35.0],
       "challenge_url": "",
@@ -278,7 +278,7 @@
       "label": [45.4, 39.2],
       "challenge_url": "",
       "needsReverse": true,
-      "visible": true
+      "visible": false
     },
     {
       "id": "hokkaido",
