@@ -58,7 +58,7 @@
       "label": [20.9, 42.6],
       "challenge_url": "https://www.geoguessr.com/challenge/wukt6oWx0O7LEgp0",
       "needsReverse": true,
-      "visible": false
+      "visible": true
     },
     {
       "id": "savoie",
