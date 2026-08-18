@@ -289,6 +289,98 @@
       "challenge_url": "",
       "needsReverse": true,
       "visible": false
-    }
+    },
+    {
+  "id": "adjara",
+  "name": "აჭარა<br>Adjara<br>Adjarie",
+  "geojson": "geojson/adjara.geojson",
+  "flag": "flags/adjara.svg",
+  "label": [42.0, 41.65],
+  "challenge_url": "",
+  "needsReverse": true,
+  "visible": false
+},
+{
+  "id": "aceh",
+  "name": "Aceh",
+  "geojson": "geojson/aceh.geojson",
+  "flag": "flags/aceh.svg",
+  "label": [96.8, 4.2],
+  "challenge_url": "",
+  "needsReverse": true,
+  "visible": false
+},
+{
+  "id": "sarawak",
+  "name": "Sarawak",
+  "geojson": "geojson/sarawak.geojson",
+  "flag": "flags/sarawak.svg",
+  "label": [113.0, 2.5],
+  "challenge_url": "",
+  "needsReverse": true,
+  "visible": false
+},
+{
+  "id": "bali",
+  "name": "Bali",
+  "geojson": "geojson/bali.geojson",
+  "flag": "flags/bali.svg",
+  "label": [115.2, -8.35],
+  "challenge_url": "",
+  "needsReverse": true,
+  "clipToLand": false,
+  "visible": false
+},
+{
+  "id": "lombok",
+  "name": "Lombok",
+  "geojson": "geojson/lombok.geojson",
+  "flag": "flags/lombok.svg",
+  "label": [116.4, -8.55],
+  "challenge_url": "",
+  "needsReverse": true,
+  "clipToLand": false,
+  "visible": false
+},
+{
+  "id": "bretagne",
+  "name": "Breizh<br>Bretagne",
+  "geojson": "geojson/bretagne.geojson",
+  "flag": "flags/bretagne.svg",
+  "label": [-3.0, 48.2],
+  "challenge_url": "",
+  "needsReverse": true,
+  "visible": false
+},
+    {
+  "id": "strandzha",
+  "name": "Странджа<br>Strandzha",
+  "geojson": "geojson/strandzha.geojson",
+  "flag": "flags/strandzha.svg",
+  "label": [27.4, 42.1],
+  "challenge_url": "",
+  "needsReverse": true,
+  "visible": false
+},
+{
+  "id": "pirin-macedonia",
+  "name": "Пиринска Македония<br>Pirinska Makedoniya<br>Macédoine du Pirin",
+  "geojson": "geojson/pirin-macedonia.geojson",
+  "flag": "flags/pirin-macedonia.svg",
+  "label": [23.3, 41.7],
+  "challenge_url": "",
+  "needsReverse": true,
+  "visible": false
+},
+{
+  "id": "north-macedonia",
+  "name": "Северна Македонија<br>North Macedonia<br>Macédoine du Nord",
+  "geojson": "geojson/north-macedonia.geojson",
+  "flag": "flags/north-macedonia.svg",
+  "label": [21.7, 41.6],
+  "challenge_url": "",
+  "needsReverse": true,
+  "visible": false
+}
   ]
 }
