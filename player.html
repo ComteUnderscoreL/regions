@@ -1,28 +1,1502 @@
-function buildBestScores(attempts) {
-  bestByRegion = new Map();
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Regions Player</title>
 
-  const visibleRegionIds = new Set(
-    allRegionsConfig.map(region => region.id)
-  );
-
-  const allPlayerAttempts = attempts.filter(
-    row => row.player_id === selectedPlayerId
-  );
-
-  const playerAttempts = allPlayerAttempts.filter(
-    row => visibleRegionIds.has(row.region_id)
-  );
-
-  const playerName = allPlayerAttempts[0]?.player || selectedPlayerId;
-
-  document.title = `${playerName} - Regions`;
-  document.getElementById("player-title").textContent = playerName;
-
-  playerAttempts.forEach(attempt => {
-    const old = bestByRegion.get(attempt.region_id);
-
-    if (isBetterAttempt(attempt, old)) {
-      bestByRegion.set(attempt.region_id, attempt);
+  <style>
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background: #101820;
+      color: white;
+      font-family: system-ui, Arial, sans-serif;
     }
-  });
-}
+
+    body {
+      overflow-x: hidden;
+    }
+
+    header {
+      padding: 18px 22px 0;
+      text-align: center;
+      z-index: 2;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 52px);
+      letter-spacing: 0.04em;
+      border: none;
+    }
+
+    .subtitle {
+      margin-top: 6px;
+      color: #c8d5df;
+      font-size: 15px;
+    }
+
+    #stats {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 14px auto 0;
+      padding: 0 16px;
+      max-width: 900px;
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 14px;
+      padding: 10px 14px;
+      min-width: 110px;
+      text-align: center;
+    }
+
+    .stat-card strong {
+      display: block;
+      font-size: 20px;
+    }
+
+    .stat-card span {
+      display: block;
+      margin-top: 2px;
+      color: rgba(255,255,255,0.68);
+      font-size: 12px;
+    }
+
+    #globe-wrap {
+      position: relative;
+      display: grid;
+      place-items: center;
+      overflow: visible;
+      height: min(130vh, 130vw);
+      min-height: 780px;
+      margin-bottom: 70px;
+    }
+
+    svg {
+      width: min(130vh, 130vw);
+      height: min(130vh, 130vw);
+      min-width: 520px;
+      min-height: 520px;
+      cursor: grab;
+      user-select: none;
+      touch-action: none;
+    }
+
+    svg:active {
+      cursor: grabbing;
+    }
+
+    .sphere {
+      fill: #15324a;
+      stroke: #7fa4c2;
+      stroke-width: 1.2;
+    }
+
+    .graticule {
+      fill: none;
+      stroke: rgba(255,255,255,0.18);
+      stroke-width: 0.5;
+    }
+
+    .land-base {
+      fill: #d8d0b8;
+      stroke: none;
+    }
+
+    .land-outline {
+      fill: none;
+      stroke: #26342b;
+      stroke-width: 0.55;
+      pointer-events: none;
+    }
+
+    .region-player {
+      stroke: white;
+      stroke-width: 1.65;
+      cursor: pointer;
+      pointer-events: all;
+    }
+
+    .region-player:hover {
+      stroke-width: 2.8;
+      filter: drop-shadow(0 0 7px rgba(255,255,255,0.75));
+    }
+
+    .arctic-circle {
+      fill: none;
+      stroke: #ffffff;
+      stroke-width: 1.45;
+      stroke-dasharray: 5 5;
+      opacity: 0.85;
+      pointer-events: none;
+    }
+
+    .tooltip {
+      position: fixed;
+      display: none;
+      pointer-events: none;
+      background: rgba(12,18,25,0.94);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 14px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.35);
+      z-index: 20;
+      max-width: 320px;
+    }
+
+    .tooltip strong {
+      display: block;
+      font-size: 15px;
+      margin-bottom: 3px;
+    }
+
+    .tooltip-line {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 4px;
+    }
+
+    .table-wrap {
+      max-width: 980px;
+      margin: 90px auto 40px;
+      padding: 0 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.14);
+    }
+
+    th, td {
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.10);
+      text-align: left;
+      font-size: 14px;
+    }
+
+    th {
+      color: rgba(255,255,255,0.72);
+      font-weight: 600;
+      background: rgba(255,255,255,0.06);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .medal {
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .medal-icon {
+      width: 28px;
+      height: 28px;
+      vertical-align: middle;
+      display: inline-block;
+      cursor: help;
+    }
+
+    .tooltip-medal-icon {
+      width: 22px;
+      height: 22px;
+      vertical-align: middle;
+      display: inline-block;
+    }
+
+    .bottom-link {
+      position: fixed;
+      left: 16px;
+      bottom: 14px;
+      color: rgba(255,255,255,0.55);
+      font-size: 13px;
+      z-index: 2;
+      text-decoration: none;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
+    .bottom-link:hover {
+      color: rgba(255,255,255,0.9);
+      text-decoration: underline;
+    }
+
+    @media (max-width: 700px) {
+      #globe-wrap {
+        height: min(120vh, 120vw);
+        min-height: 620px;
+        margin-bottom: 50px;
+      }
+
+      svg {
+        width: min(130vh, 130vw);
+        height: min(130vh, 130vw);
+        min-width: 460px;
+        min-height: 460px;
+      }
+
+      .table-wrap {
+        margin-top: 70px;
+      }
+
+      .bottom-link {
+        position: static;
+        display: block;
+        margin: 0 16px 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1 id="player-title">Player</h1>
+    <div class="subtitle">Explorer progress</div>
+    <div id="stats"></div>
+  </header>
+
+  <main id="globe-wrap">
+    <svg id="globe" viewBox="0 0 900 900">
+      <defs></defs>
+    </svg>
+
+    <div id="tooltip" class="tooltip"></div>
+  </main>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Region</th>
+          <th>Best score</th>
+          <th>Time</th>
+          <th>Medal</th>
+          <th>Challenge</th>
+        </tr>
+      </thead>
+
+      <tbody id="score-table"></tbody>
+    </table>
+  </div>
+
+  <a class="bottom-link" href="index.html">← Globe</a>
+
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
+
+  <script>
+    const CONFIG_URL = "data/regions.json?v=2";
+    const SCORES_URL = "data/player_scores.tsv?v=2";
+    const LAND_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/land-110m.json";
+
+    const CHALLENGE_BASE_URL = "https://www.geoguessr.com/challenge/";
+
+    const MEDAL_BASE_URL =
+      "https://raw.githubusercontent.com/ComteUnderscoreL/geostats/main/medal/";
+
+    const params = new URLSearchParams(window.location.search);
+    const selectedPlayerId = params.get("id") || "ted";
+
+    const medalInfo = {
+      none: {
+        label: "Not played",
+        color: "#cfc6ad",
+        icon: "",
+        rule: "No score yet"
+      },
+
+      copper: {
+        label: "Copper",
+        color: "#b87333",
+        icon: MEDAL_BASE_URL + "copper.svg",
+        rule: "5,000+"
+      },
+
+      iron: {
+        label: "Iron",
+        color: "#b8b8b8",
+        icon: MEDAL_BASE_URL + "iron.svg",
+        rule: "15,000+"
+      },
+
+      gold: {
+        label: "Gold",
+        color: "#f2b705",
+        icon: MEDAL_BASE_URL + "gold.svg",
+        rule: "22,500+"
+      },
+
+      diamond: {
+        label: "Diamond",
+        color: "#6ee7ff",
+        icon: MEDAL_BASE_URL + "diamond.svg",
+        rule: "25,000"
+      },
+
+      emerald: {
+        label: "Emerald",
+        color: "#50c878",
+        icon: MEDAL_BASE_URL + "emerald.svg",
+        rule: "25,000 · 5:00–10:00"
+      },
+
+      netherite: {
+        label: "Netherite",
+        color: "#2b2430",
+        icon: MEDAL_BASE_URL + "netherite.svg",
+        rule: "25,000 · <5:00"
+      }
+    };
+
+    const svg = d3.select("#globe");
+    const tooltip = d3.select("#tooltip");
+
+    const width = 900;
+    const height = 900;
+
+    let baseScale = 390;
+    let currentScale = baseScale;
+
+    let spinning = false;
+    let spinTimer = null;
+
+    let rotation = [75, -68, 0];
+    let targetRotation = [75, -68, 0];
+    let smoothTimer = null;
+
+    let landData = null;
+    let regions = [];
+
+    let bestByRegion = new Map();
+
+    // Contiendra uniquement les régions avec visible:true
+    let allRegionsConfig = [];
+
+    const projection = d3.geoOrthographic()
+      .scale(currentScale)
+      .translate([width / 2, height / 2])
+      .rotate(rotation)
+      .clipAngle(90);
+
+    const path = d3.geoPath(projection);
+
+    const graticule = d3.geoGraticule10();
+
+    const sphere = {
+      type: "Sphere"
+    };
+
+    const arcticCircle = {
+      type: "LineString",
+      coordinates: d3
+        .range(-180, 181, 1)
+        .map(lon => [lon, 66.5636])
+    };
+
+    const g = svg.append("g");
+
+    g.append("path")
+      .datum(sphere)
+      .attr("class", "sphere");
+
+    g.append("path")
+      .datum(graticule)
+      .attr("class", "graticule");
+
+    const defs = svg.select("defs");
+
+    const landClip = defs
+      .append("clipPath")
+      .attr("id", "landClip");
+
+    const landClipPath = landClip.append("path");
+
+    const landBasePath = g
+      .append("path")
+      .attr("class", "land-base");
+
+    // Régions terrestres
+    const regionGroup = g
+      .append("g")
+      .attr("clip-path", "url(#landClip)");
+
+    // Petites îles / régions non clippées
+    const oceanRegionGroup = g.append("g");
+
+    const landOutlinePath = g
+      .append("path")
+      .attr("class", "land-outline");
+
+    const arcticPath = g
+      .append("path")
+      .datum(arcticCircle)
+      .attr("class", "arctic-circle");
+
+
+    function reverseGeoJSONRings(obj) {
+      const copy = JSON.parse(JSON.stringify(obj));
+
+      function reverseGeometry(geom) {
+        if (!geom) return;
+
+        if (geom.type === "Polygon") {
+
+          geom.coordinates = geom.coordinates.map(
+            ring => [...ring].reverse()
+          );
+
+        } else if (geom.type === "MultiPolygon") {
+
+          geom.coordinates = geom.coordinates.map(
+            poly => poly.map(
+              ring => [...ring].reverse()
+            )
+          );
+
+        } else if (geom.type === "GeometryCollection") {
+
+          geom.geometries.forEach(reverseGeometry);
+        }
+      }
+
+      if (copy.type === "FeatureCollection") {
+
+        copy.features.forEach(
+          f => reverseGeometry(f.geometry)
+        );
+
+      } else if (copy.type === "Feature") {
+
+        reverseGeometry(copy.geometry);
+
+      } else {
+
+        reverseGeometry(copy);
+      }
+
+      return copy;
+    }
+
+
+    function normalizeLon(lon) {
+      return ((lon + 180) % 360 + 360) % 360 - 180;
+    }
+
+
+    function clampLat(lat) {
+      return Math.max(-89.5, Math.min(89.5, lat));
+    }
+
+
+    function formatScore(score) {
+      if (!score || score <= 0) return "—";
+
+      return Number(score).toLocaleString("en-US");
+    }
+
+
+    function formatTime(seconds) {
+      if (!seconds || !isFinite(seconds)) return "—";
+
+      seconds = Math.round(Number(seconds));
+
+      const m = Math.floor(seconds / 60);
+      const s = seconds % 60;
+
+      return `${m}:${String(s).padStart(2, "0")}`;
+    }
+
+
+    function medalForAttempt(attempt) {
+      if (!attempt || !attempt.score) return "none";
+
+      const score = Number(attempt.score);
+      const time = Number(attempt.time_seconds);
+
+      if (
+        score === 25000 &&
+        time > 0 &&
+        time < 300
+      ) {
+        return "netherite";
+      }
+
+      if (
+        score === 25000 &&
+        time > 0 &&
+        time < 600
+      ) {
+        return "emerald";
+      }
+
+      if (score === 25000) {
+        return "diamond";
+      }
+
+      if (score >= 22500) {
+        return "gold";
+      }
+
+      if (score >= 15000) {
+        return "iron";
+      }
+
+      if (score >= 5000) {
+        return "copper";
+      }
+
+      return "none";
+    }
+
+
+    function globeMedalForAttempt(attempt) {
+      const medal = medalForAttempt(attempt);
+
+      if (
+        medal === "emerald" ||
+        medal === "netherite"
+      ) {
+        return "diamond";
+      }
+
+      return medal;
+    }
+
+
+    function isBetterAttempt(newAttempt, oldAttempt) {
+      if (!oldAttempt) return true;
+
+      const newScore = Number(newAttempt.score);
+      const oldScore = Number(oldAttempt.score);
+
+      if (newScore > oldScore) return true;
+      if (newScore < oldScore) return false;
+
+      const newTime =
+        Number(newAttempt.time_seconds || Infinity);
+
+      const oldTime =
+        Number(oldAttempt.time_seconds || Infinity);
+
+      return newTime < oldTime;
+    }
+
+
+    function medalHtml(medal, className) {
+      const info =
+        medalInfo[medal] || medalInfo.none;
+
+      if (!info.icon) {
+        return `<span title="${info.label}">${info.label}</span>`;
+      }
+
+      return `
+        <img
+          src="${info.icon}"
+          alt="${info.label}"
+          title="${info.label}"
+          class="${className}"
+        >
+      `;
+    }
+
+
+    function tooltipPosition(event) {
+      const pad = 14;
+
+      let left = event.clientX + pad;
+      let top = event.clientY + pad;
+
+      tooltip
+        .style("left", `${left}px`)
+        .style("top", `${top}px`);
+
+      const rect =
+        tooltip.node().getBoundingClientRect();
+
+      if (
+        rect.right >
+        window.innerWidth - 8
+      ) {
+        left =
+          event.clientX -
+          rect.width -
+          pad;
+      }
+
+      if (
+        rect.bottom >
+        window.innerHeight - 8
+      ) {
+        top =
+          event.clientY -
+          rect.height -
+          pad;
+      }
+
+      tooltip
+        .style(
+          "left",
+          `${Math.max(8, left)}px`
+        )
+        .style(
+          "top",
+          `${Math.max(8, top)}px`
+        );
+    }
+
+
+    function showRegionTooltip(event, region) {
+      const best =
+        bestByRegion.get(region.id);
+
+      const medal =
+        medalForAttempt(best);
+
+      const medalLabel =
+        medalInfo[medal].label;
+
+      const scoreLine = best
+        ? `${formatScore(best.score)} · ${formatTime(best.time_seconds)} · ${medalLabel}`
+        : "Not played yet";
+
+      tooltip
+        .style("display", "block")
+        .html(`
+          <strong>${region.name}</strong>
+
+          <span class="tooltip-line">
+
+            ${medalHtml(
+              medal,
+              "tooltip-medal-icon"
+            )}
+
+            <span>${scoreLine}</span>
+
+          </span>
+        `);
+
+      tooltipPosition(event);
+    }
+
+
+    function showMedalTooltip(event, medal) {
+      const info =
+        medalInfo[medal] ||
+        medalInfo.none;
+
+      tooltip
+        .style("display", "block")
+        .html(`
+          <strong>${info.label}</strong>
+
+          <span class="tooltip-line">
+
+            ${medalHtml(
+              medal,
+              "tooltip-medal-icon"
+            )}
+
+            <span>${info.rule}</span>
+
+          </span>
+        `);
+
+      tooltipPosition(event);
+    }
+
+
+    function hideTooltip() {
+      tooltip.style("display", "none");
+    }
+
+
+    function redraw() {
+      g.select(".sphere")
+        .attr("d", path);
+
+      g.select(".graticule")
+        .attr("d", path);
+
+      if (landData) {
+
+        landBasePath
+          .datum(landData)
+          .attr("d", path);
+
+        landOutlinePath
+          .datum(landData)
+          .attr("d", path);
+
+        landClipPath
+          .datum(landData)
+          .attr("d", path);
+      }
+
+      regions.forEach(region => {
+
+        region.path
+          .datum(region.geojson)
+          .attr("d", path);
+
+      });
+
+      arcticPath.attr("d", path);
+    }
+
+
+    function applyRotation(r) {
+      rotation = [
+        normalizeLon(r[0]),
+        clampLat(r[1]),
+        0
+      ];
+
+      projection.rotate(rotation);
+
+      hideTooltip();
+
+      redraw();
+    }
+
+
+    function startSmoothLoop() {
+      if (smoothTimer) return;
+
+      smoothTimer = d3.timer(() => {
+
+        const ease = 0.18;
+
+        let lonDiff =
+          targetRotation[0] -
+          rotation[0];
+
+        if (lonDiff > 180) {
+          lonDiff -= 360;
+        }
+
+        if (lonDiff < -180) {
+          lonDiff += 360;
+        }
+
+        const latDiff =
+          targetRotation[1] -
+          rotation[1];
+
+        if (
+          Math.abs(lonDiff) < 0.01 &&
+          Math.abs(latDiff) < 0.01
+        ) {
+
+          applyRotation(targetRotation);
+
+          smoothTimer.stop();
+          smoothTimer = null;
+
+          return;
+        }
+
+        applyRotation([
+          rotation[0] + lonDiff * ease,
+          rotation[1] + latDiff * ease,
+          0
+        ]);
+      });
+    }
+
+
+    function setTargetRotation(r) {
+      targetRotation = [
+        normalizeLon(r[0]),
+        clampLat(r[1]),
+        0
+      ];
+
+      startSmoothLoop();
+    }
+
+
+    function setView(view) {
+      const views = {
+        arctic: [0, -90, 0],
+        canada: [75, -68, 0],
+        atlantic: [24, -18, 0]
+      };
+
+      setTargetRotation(
+        views[view] ||
+        views.canada
+      );
+    }
+
+
+    function toggleSpin() {
+      spinning = !spinning;
+
+      if (spinning) {
+
+        if (smoothTimer) {
+          smoothTimer.stop();
+          smoothTimer = null;
+        }
+
+        spinTimer = d3.timer(() => {
+
+          targetRotation = [
+            normalizeLon(
+              targetRotation[0] + 0.12
+            ),
+            targetRotation[1],
+            0
+          ];
+
+          applyRotation([
+            rotation[0] + 0.12,
+            rotation[1],
+            0
+          ]);
+
+        });
+
+      } else if (spinTimer) {
+
+        spinTimer.stop();
+        spinTimer = null;
+      }
+    }
+
+
+    function parseTsv(text) {
+      return d3.tsvParse(text)
+        .map(row => ({
+          ...row,
+          score:
+            Number(row.score || 0),
+          time_seconds:
+            Number(
+              row.time_seconds || 0
+            )
+        }));
+    }
+
+
+    /*
+      IMPORTANT :
+      Les scores présents dans le TSV pour
+      des régions visible:false sont ignorés.
+    */
+    function buildBestScores(attempts) {
+      bestByRegion = new Map();
+
+      const visibleRegionIds =
+        new Set(
+          allRegionsConfig.map(
+            region => region.id
+          )
+        );
+
+      /*
+        On récupère d'abord tous les essais
+        uniquement pour retrouver correctement
+        le nom du joueur.
+      */
+      const allPlayerAttempts =
+        attempts.filter(
+          row =>
+            row.player_id ===
+            selectedPlayerId
+        );
+
+      /*
+        Puis on ne garde que les scores
+        appartenant aux régions visibles.
+      */
+      const playerAttempts =
+        allPlayerAttempts.filter(
+          row =>
+            visibleRegionIds.has(
+              row.region_id
+            )
+        );
+
+      const playerName =
+        allPlayerAttempts[0]?.player ||
+        selectedPlayerId;
+
+      document.title =
+        `${playerName} - Regions`;
+
+      document
+        .getElementById("player-title")
+        .textContent =
+        playerName;
+
+      playerAttempts.forEach(attempt => {
+
+        const old =
+          bestByRegion.get(
+            attempt.region_id
+          );
+
+        if (
+          isBetterAttempt(
+            attempt,
+            old
+          )
+        ) {
+          bestByRegion.set(
+            attempt.region_id,
+            attempt
+          );
+        }
+
+      });
+    }
+
+
+    function renderStats() {
+      const bests =
+        [...bestByRegion.values()];
+
+      const played =
+        bests.length;
+
+      const perfects =
+        bests.filter(
+          a =>
+            Number(a.score) ===
+            25000
+        ).length;
+
+      const totalScore =
+        bests.reduce(
+          (sum, a) =>
+            sum +
+            Number(a.score || 0),
+          0
+        );
+
+      document
+        .getElementById("stats")
+        .innerHTML = `
+
+          <div class="stat-card">
+
+            <strong>
+              ${played}/${allRegionsConfig.length}
+            </strong>
+
+            <span>
+              regions played
+            </span>
+
+          </div>
+
+          <div class="stat-card">
+
+            <strong>
+              ${perfects}
+            </strong>
+
+            <span>
+              perfects
+            </span>
+
+          </div>
+
+          <div class="stat-card">
+
+            <strong>
+              ${formatScore(totalScore)}
+            </strong>
+
+            <span>
+              total
+            </span>
+
+          </div>
+        `;
+    }
+
+
+    function renderTable() {
+      const tbody =
+        document.getElementById(
+          "score-table"
+        );
+
+      /*
+        allRegionsConfig contient déjà
+        uniquement visible:true.
+      */
+      tbody.innerHTML =
+        allRegionsConfig
+          .map(region => {
+
+            const best =
+              bestByRegion.get(
+                region.id
+              );
+
+            const medal =
+              medalForAttempt(best);
+
+            const info =
+              medalInfo[medal];
+
+            const challengeId =
+              best?.challenge_id ||
+              "";
+
+            const challengeUrl =
+              challengeId
+                ? `${CHALLENGE_BASE_URL}${challengeId}`
+                : region.challenge_url;
+
+            return `
+              <tr>
+
+                <td>
+                  ${region.name}
+                </td>
+
+                <td>
+                  ${formatScore(
+                    best?.score
+                  )}
+                </td>
+
+                <td>
+                  ${formatTime(
+                    best?.time_seconds
+                  )}
+                </td>
+
+                <td
+                  class="medal"
+                  style="color:${info.color}"
+                  data-region-id="${region.id}"
+                >
+
+                  ${medalHtml(
+                    medal,
+                    "medal-icon"
+                  )}
+
+                </td>
+
+                <td>
+
+                  ${
+                    challengeUrl
+                      ? `<a href="${challengeUrl}" target="_blank">open</a>`
+                      : "—"
+                  }
+
+                </td>
+
+              </tr>
+            `;
+
+          })
+          .join("");
+
+      tbody
+        .querySelectorAll(".medal")
+        .forEach(cell => {
+
+          const best =
+            bestByRegion.get(
+              cell.dataset.regionId
+            );
+
+          const medal =
+            medalForAttempt(best);
+
+          cell.addEventListener(
+            "mouseenter",
+            event =>
+              showMedalTooltip(
+                event,
+                medal
+              )
+          );
+
+          cell.addEventListener(
+            "mousemove",
+            event =>
+              tooltipPosition(event)
+          );
+
+          cell.addEventListener(
+            "mouseleave",
+            hideTooltip
+          );
+
+        });
+    }
+
+
+    let dragStart = null;
+    let dragStartRotation = null;
+
+
+    svg.call(
+      d3.drag()
+
+        .on("start", event => {
+
+          if (spinning) {
+            toggleSpin();
+          }
+
+          if (smoothTimer) {
+            smoothTimer.stop();
+            smoothTimer = null;
+          }
+
+          hideTooltip();
+
+          dragStart = [
+            event.x,
+            event.y
+          ];
+
+          dragStartRotation =
+            [...rotation];
+
+          targetRotation =
+            [...rotation];
+
+        })
+
+        .on("drag", event => {
+
+          const zoomFactor =
+            currentScale /
+            baseScale;
+
+          const speed =
+            0.35 /
+            zoomFactor;
+
+          const dx =
+            event.x -
+            dragStart[0];
+
+          const dy =
+            event.y -
+            dragStart[1];
+
+          const newLon =
+            dragStartRotation[0] +
+            dx * speed;
+
+          const newLat =
+            dragStartRotation[1] -
+            dy * speed;
+
+          targetRotation = [
+            normalizeLon(newLon),
+            clampLat(newLat),
+            0
+          ];
+
+          applyRotation(
+            targetRotation
+          );
+
+        })
+
+        .on("end", () => {
+
+          dragStart = null;
+          dragStartRotation = null;
+
+        })
+    );
+
+
+    svg.call(
+      d3.zoom()
+
+        .scaleExtent([
+          0.6,
+          8
+        ])
+
+        .filter(
+          event =>
+            event.type ===
+            "wheel"
+        )
+
+        .on("zoom", event => {
+
+          currentScale =
+            baseScale *
+            event.transform.k;
+
+          projection.scale(
+            currentScale
+          );
+
+          hideTooltip();
+
+          redraw();
+
+        })
+    );
+
+
+    svg.on(
+      "dblclick.zoom",
+      null
+    );
+
+
+    svg.on(
+      "dblclick",
+      () =>
+        setView("canada")
+    );
+
+
+    async function load() {
+      const [
+        config,
+        attemptsText,
+        world
+      ] = await Promise.all([
+
+        d3.json(
+          CONFIG_URL
+        ),
+
+        d3.text(
+          SCORES_URL
+        ),
+
+        d3.json(
+          LAND_URL
+        )
+
+      ]);
+
+
+      /*
+        IMPORTANT :
+        seules les régions explicitement
+        marquées visible:true sont utilisées.
+      */
+      allRegionsConfig =
+        config.regions.filter(
+          region =>
+            region.visible === true
+        );
+
+
+      /*
+        buildBestScores utilise maintenant
+        allRegionsConfig pour ignorer les
+        anciens scores des régions cachées.
+      */
+      buildBestScores(
+        parseTsv(
+          attemptsText
+        )
+      );
+
+
+      landData =
+        topojson.feature(
+          world,
+          world.objects.land
+        );
+
+
+      /*
+        On ne charge également les GeoJSON
+        que pour les régions visibles.
+
+        Une région visible:false peut donc
+        être présente dans regions.json
+        même si son GeoJSON n'existe pas encore.
+      */
+      for (
+        const item
+        of allRegionsConfig
+      ) {
+
+        let geojson =
+          await d3.json(
+            item.geojson
+          );
+
+
+        if (
+          item.needsReverse
+        ) {
+
+          geojson =
+            reverseGeoJSONRings(
+              geojson
+            );
+
+        }
+
+
+        const best =
+          bestByRegion.get(
+            item.id
+          );
+
+
+        const medal =
+          medalForAttempt(
+            best
+          );
+
+
+        const globeMedal =
+          globeMedalForAttempt(
+            best
+          );
+
+
+        const fillColor =
+          medalInfo[
+            globeMedal
+          ].color;
+
+
+        const clipToLand =
+          item.clipToLand !== false;
+
+
+        const targetGroup =
+          clipToLand
+            ? regionGroup
+            : oceanRegionGroup;
+
+
+        const regionPath =
+          targetGroup
+            .append("path")
+
+            .attr(
+              "class",
+              "region-player"
+            )
+
+            .attr(
+              "fill",
+              fillColor
+            )
+
+            .attr(
+              "fill-opacity",
+              1
+            )
+
+            .on(
+              "mouseenter",
+              event =>
+                showRegionTooltip(
+                  event,
+                  item
+                )
+            )
+
+            .on(
+              "mousemove",
+              event =>
+                showRegionTooltip(
+                  event,
+                  item
+                )
+            )
+
+            .on(
+              "mouseleave",
+              hideTooltip
+            )
+
+            .on(
+              "click",
+              () => {
+
+                const challengeId =
+                  best?.challenge_id;
+
+                const url =
+                  challengeId
+
+                    ? `${CHALLENGE_BASE_URL}${challengeId}`
+
+                    : item.challenge_url;
+
+
+                if (url) {
+
+                  window.open(
+                    url,
+                    "_blank"
+                  );
+
+                }
+
+              }
+            );
+
+
+        regions.push({
+          ...item,
+          geojson,
+          path: regionPath
+        });
+
+      }
+
+
+      renderStats();
+
+      renderTable();
+
+      redraw();
+    }
+
+
+    load();
+
+
+    window.setView =
+      setView;
+
+    window.toggleSpin =
+      toggleSpin;
+
+  </script>
+
+</body>
+</html>
