@@ -508,14 +508,14 @@
 
 
     function formatScore(score) {
-      if (!score || score <= 0) return "—";
+      if (!score || score <= 0) return "-";
 
       return Number(score).toLocaleString("en-US");
     }
 
 
     function formatTime(seconds) {
-      if (!seconds || !isFinite(seconds)) return "—";
+      if (!seconds || !isFinite(seconds)) return "-";
 
       seconds = Math.round(Number(seconds));
 
@@ -1110,7 +1110,7 @@
                   ${
                     challengeUrl
                       ? `<a href="${challengeUrl}" target="_blank">open</a>`
-                      : "—"
+                      : "-"
                   }
 
                 </td>
