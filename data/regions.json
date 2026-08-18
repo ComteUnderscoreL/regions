@@ -381,6 +381,16 @@
   "challenge_url": "",
   "needsReverse": true,
   "visible": false
+},
+{
+  "id": "hokkaido",
+  "name": "北海道<br>Hokkaidō",
+  "geojson": "geojson/hokkaido.geojson",
+  "flag": "flags/hokkaido.svg",
+  "label": [142.8, 43.4],
+  "challenge_url": "",
+  "needsReverse": false,
+  "visible": true
 }
   ]
 }
