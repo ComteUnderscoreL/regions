@@ -278,7 +278,7 @@
       "label": [45.4, 39.2],
       "challenge_url": "",
       "needsReverse": true,
-      "visible": false
+      "visible": true
     },
     {
       "id": "hokkaido",
