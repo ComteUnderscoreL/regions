@@ -247,7 +247,7 @@
       "flag": "flags/montenegro.svg",
       "label": [19.25, 42.75],
       "challenge_url": "",
-      "needsReverse": true,
+      "needsReverse": false,
       "visible": true
     },
     {
