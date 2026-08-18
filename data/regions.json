@@ -257,7 +257,7 @@
       "flag": "flags/nagaland.svg",
       "label": [94.55, 26.15],
       "challenge_url": "",
-      "needsReverse": true,
+      "needsReverse": false,
       "visible": true
     },
     {
