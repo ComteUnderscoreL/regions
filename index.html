@@ -373,7 +373,7 @@
   <script src="js/globe.js?v=3"></script>
 
   <script>
-    const CONFIG_URL_FOR_RANKING = "data/regions.json?v=2";
+    const CONFIG_URL_FOR_RANKING = "data/regions.json?v=3";
     const SCORES_URL = "data/player_scores.tsv?v=2";
 
     const medalOrder = ["netherite", "emerald", "diamond", "gold", "iron", "copper"];
@@ -433,8 +433,13 @@
 
     function stripHtml(value) {
       const div = document.createElement("div");
-      div.innerHTML = value || "";
-      return div.textContent || div.innerText || "";
+
+      div.innerHTML = (value || "")
+        .replace(/<br\s*\/?>/gi, " ");
+
+      return (div.textContent || div.innerText || "")
+        .replace(/\s+/g, " ")
+        .trim();
     }
 
     function parseAttempts(text) {
@@ -445,10 +450,10 @@
       }));
     }
 
-    function buildRegionNameMap(config) {
+    function buildRegionNameMap(regions) {
       const map = new Map();
 
-      config.regions.forEach(region => {
+      regions.forEach(region => {
         map.set(region.id, stripHtml(region.name));
       });
 
@@ -638,9 +643,24 @@
           d3.text(SCORES_URL)
         ]);
 
-        const regionNameMap = buildRegionNameMap(config);
-        const attempts = parseAttempts(attemptsText);
-        renderRanking(buildRanking(attempts), regionNameMap);
+        const visibleRegions = config.regions.filter(
+          region => region.visible === true
+        );
+
+        const visibleRegionIds = new Set(
+          visibleRegions.map(region => region.id)
+        );
+
+        const regionNameMap = buildRegionNameMap(visibleRegions);
+
+        const attempts = parseAttempts(attemptsText).filter(
+          attempt => visibleRegionIds.has(attempt.region_id)
+        );
+
+        renderRanking(
+          buildRanking(attempts),
+          regionNameMap
+        );
       } catch (error) {
         document.getElementById("medal-ranking").innerHTML =
           `<tr><td class="player-cell" colspan="9">Could not load data/player_scores.tsv</td></tr>`;
