@@ -1,85 +1,94 @@
 {
   "regions": [
     {
-  "id": "alsace",
-  "name": "Elsàss<br>Alsace",
-  "geojson": "geojson/alsace.geojson",
-  "flag": "flags/alsace.svg",
-  "label": [7.45, 48.35],
-  "challenge_url": "",
-  "needsReverse": false
+      "id": "alsace",
+      "name": "Elsàss<br>Alsace",
+      "geojson": "geojson/alsace.geojson",
+      "flag": "flags/alsace.svg",
+      "label": [7.45, 48.35],
+      "challenge_url": "",
+      "needsReverse": false,
+      "visible": true
     },
     {
-  "id": "basque",
-  "name": "Euskal Herria<br>País Vasco<br>Pays basque",
-  "geojson": "geojson/basque.geojson",
-  "flag": "flags/basque.svg",
-  "label": [-1.6, 43.05],
-  "challenge_url": "",
-  "needsReverse": true
-   },
-    {
-  "id": "cornwall",
-  "name": "Kernow<br>Cornwall<br>Cornouailles",
-  "geojson": "geojson/cornwall.geojson",
-  "flag": "flags/cornwall.svg",
-  "label": [-4.75, 50.42],
-  "challenge_url": "",
-  "needsReverse": true
+      "id": "basque",
+      "name": "Euskal Herria<br>País Vasco<br>Pays basque",
+      "geojson": "geojson/basque.geojson",
+      "flag": "flags/basque.svg",
+      "label": [-1.6, 43.05],
+      "challenge_url": "",
+      "needsReverse": true,
+      "visible": true
     },
     {
-    "id": "aosta",
-    "name": "Val d’Outa<br>Vallée d’Aoste<br>Valle d’Aosta",
-    "geojson": "geojson/aosta.geojson",
-    "flag": "flags/aosta.svg",
-    "label": [7.378, 45.7213],
-    "challenge_url": "https://www.geoguessr.com/challenge/vLRyp86L4UdIm8vi",
-    "needsReverse": true
+      "id": "cornwall",
+      "name": "Kernow<br>Cornwall<br>Cornouailles",
+      "geojson": "geojson/cornwall.geojson",
+      "flag": "flags/cornwall.svg",
+      "label": [-4.75, 50.42],
+      "challenge_url": "",
+      "needsReverse": true,
+      "visible": true
     },
     {
-  "id": "gex",
-  "name": "Pays de Gex<br>Payis de Gèx",
-  "geojson": "geojson/gex.geojson",
-  "flag": "flags/gex.svg",
-  "label": [6.06, 46.28],
-  "challenge_url": "",
-  "needsReverse": true
+      "id": "aosta",
+      "name": "Val d’Outa<br>Vallée d’Aoste<br>Valle d’Aosta",
+      "geojson": "geojson/aosta.geojson",
+      "flag": "flags/aosta.svg",
+      "label": [7.378, 45.7213],
+      "challenge_url": "https://www.geoguessr.com/challenge/vLRyp86L4UdIm8vi",
+      "needsReverse": true,
+      "visible": true
     },
     {
-    "id": "kosovo",
-    "name": "Kosova<br>Kosovo",
-    "geojson": "geojson/kosovo.geojson",
-    "flag": "flags/kosovo.svg",
-    "label": [20.9, 42.6],
-    "challenge_url": "https://www.geoguessr.com/challenge/wukt6oWx0O7LEgp0",
-    "needsReverse": true
-  },
-  {
-  "id": "savoie",
-  "name": "Savouè<br>Savoie",
-  "geojson": "geojson/savoie.geojson",
-  "flag": "flags/savoie.svg",
-  "label": [6.42, 45.72],
-  "challenge_url": "",
-  "needsReverse": true
+      "id": "gex",
+      "name": "Pays de Gex<br>Payis de Gèx",
+      "geojson": "geojson/gex.geojson",
+      "flag": "flags/gex.svg",
+      "label": [6.06, 46.28],
+      "challenge_url": "",
+      "needsReverse": true,
+      "visible": false
     },
     {
-  "id": "valais",
-  "name": "Valais<br>Wallis<br>Valês",
-  "geojson": "geojson/valais.geojson",
-  "flag": "flags/valais.svg",
-  "label": [7.61, 46.19],
-  "challenge_url": "",
-  "needsReverse": false
-  },
-  {
+      "id": "kosovo",
+      "name": "Kosova<br>Kosovo",
+      "geojson": "geojson/kosovo.geojson",
+      "flag": "flags/kosovo.svg",
+      "label": [20.9, 42.6],
+      "challenge_url": "https://www.geoguessr.com/challenge/wukt6oWx0O7LEgp0",
+      "needsReverse": true,
+      "visible": true
+    },
+    {
+      "id": "savoie",
+      "name": "Savouè<br>Savoie",
+      "geojson": "geojson/savoie.geojson",
+      "flag": "flags/savoie.svg",
+      "label": [6.42, 45.72],
+      "challenge_url": "",
+      "needsReverse": true,
+      "visible": true
+    },
+    {
+      "id": "valais",
+      "name": "Valais<br>Wallis<br>Valês",
+      "geojson": "geojson/valais.geojson",
+      "flag": "flags/valais.svg",
+      "label": [7.61, 46.19],
+      "challenge_url": "",
+      "needsReverse": false,
+      "visible": false
+    },
+    {
       "id": "nunavik",
       "name": "ᓄᓇᕕᒃ<br>Nunavik",
       "geojson": "geojson/nunavik.geojson",
       "flag": "flags/nunavik.svg",
       "label": [-73.5, 58.9],
       "challenge_url": "https://www.geoguessr.com/challenge/zO2pp9YgiW0nlnuW",
-      "needsReverse": true
+      "needsReverse": true,
+      "visible": false
     },
     {
       "id": "kabylie",
@@ -88,7 +97,8 @@
       "flag": "flags/amazigh.svg",
       "label": [4.7, 36.45],
       "challenge_url": "https://www.geoguessr.com/challenge/iyFklmzRrjlCos6O",
-      "needsReverse": true
+      "needsReverse": true,
+      "visible": true
     },
     {
       "id": "inupiat",
@@ -97,7 +107,8 @@
       "flag": "flags/alaska.svg",
       "label": [-157.5, 69.2],
       "challenge_url": "https://www.geoguessr.com/challenge/A2G6fRnwTqelQ0m6",
-      "needsReverse": true
+      "needsReverse": true,
+      "visible": false
     },
     {
       "id": "nunatsiavut",
@@ -106,106 +117,117 @@
       "flag": "flags/nunatsiavut.svg",
       "label": [-61.5, 56.0],
       "challenge_url": "https://www.geoguessr.com/challenge/wafgLUWr7QbOp8X4",
-      "needsReverse": true
+      "needsReverse": true,
+      "visible": false
     },
     {
-  "id": "setomaa",
-  "name": "Setomaa",
-  "geojson": "geojson/setomaa.geojson",
-  "flag": "flags/setomaa.svg",
-  "label": [27.46, 57.91],
-  "challenge_url": "",
-  "needsReverse": true
+      "id": "setomaa",
+      "name": "Setomaa",
+      "geojson": "geojson/setomaa.geojson",
+      "flag": "flags/setomaa.svg",
+      "label": [27.46, 57.91],
+      "challenge_url": "",
+      "needsReverse": true,
+      "visible": false
     },
     {
-  "id": "scilly",
-  "name": "Isles of Scilly<br>Enesek Syllan<br>Îles Sorlingues",
-  "geojson": "geojson/scilly.geojson",
-  "flag": "flags/scilly.svg",
-  "label": [-6.31, 49.93],
-  "challenge_url": "",
-  "needsReverse": true,
-  "clipToLand": false
+      "id": "scilly",
+      "name": "Isles of Scilly<br>Enesek Syllan<br>Îles Sorlingues",
+      "geojson": "geojson/scilly.geojson",
+      "flag": "flags/scilly.svg",
+      "label": [-6.31, 49.93],
+      "challenge_url": "",
+      "needsReverse": true,
+      "clipToLand": false,
+      "visible": true
     },
     {
-  "id": "capeverde",
-  "name": "Cabo Verde<br>Cap-Vert",
-  "geojson": "geojson/capeverde.geojson",
-  "flag": "flags/capeverde.svg",
-  "label": [-24.1, 16.1],
-  "challenge_url": "https://www.geoguessr.com/challenge/KeMKi5Kza6jC7plG",
-  "needsReverse": true,
-  "clipToLand": false
+      "id": "capeverde",
+      "name": "Cabo Verde<br>Cap-Vert",
+      "geojson": "geojson/capeverde.geojson",
+      "flag": "flags/capeverde.svg",
+      "label": [-24.1, 16.1],
+      "challenge_url": "https://www.geoguessr.com/challenge/KeMKi5Kza6jC7plG",
+      "needsReverse": true,
+      "clipToLand": false,
+      "visible": true
     },
     {
-  "id": "wight",
-  "name": "Isle of Wight",
-  "geojson": "geojson/wight.geojson",
-  "flag": "flags/wight.svg",
-  "label": [-1.3, 50.67],
-  "challenge_url": "",
-  "needsReverse": true,
-  "clipToLand": false
+      "id": "wight",
+      "name": "Isle of Wight",
+      "geojson": "geojson/wight.geojson",
+      "flag": "flags/wight.svg",
+      "label": [-1.3, 50.67],
+      "challenge_url": "",
+      "needsReverse": true,
+      "clipToLand": false,
+      "visible": true
     },
     {
-  "id": "zenadth",
-  "name": "Zenadth Kes",
-  "geojson": "geojson/zenadth.geojson",
-  "flag": "flags/zenadth.svg",
-  "label": [142.2, -10.6],
-  "challenge_url": "",
-  "needsReverse": true,
-  "clipToLand": false
+      "id": "zenadth",
+      "name": "Zenadth Kes",
+      "geojson": "geojson/zenadth.geojson",
+      "flag": "flags/zenadth.svg",
+      "label": [142.2, -10.6],
+      "challenge_url": "",
+      "needsReverse": true,
+      "clipToLand": false,
+      "visible": false
     },
     {
-  "id": "niue",
-  "name": "Niue",
-  "geojson": "geojson/niue.geojson",
-  "flag": "flags/niue.svg",
-  "label": [-169.87, -19.05],
-  "challenge_url": "",
-  "needsReverse": true,
-  "clipToLand": false
-  },
-  {
-  "id": "tonga",
-  "name": "Tonga",
-  "geojson": "geojson/tonga.geojson",
-  "flag": "flags/tonga.svg",
-  "label": [-175.2, -21.2],
-  "challenge_url": "",
-  "needsReverse": true,
-  "clipToLand": false
-  },
-  {
-    "id": "helgoland",
-    "name": "Deät Lun<br>Helgoland",
-    "geojson": "geojson/helgoland.geojson",
-    "flag": "flags/helgoland.svg",
-    "label": [7.8960376,54.1832998],
-    "challenge_url": "",
-    "needsReverse": true,
-    "clipToLand": false
-   },
-   {
-  "id": "rapanui",
-  "name": "Rapa Nui",
-  "geojson": "geojson/rapanui.geojson",
-  "flag": "flags/rapanui.svg",
-  "label": [-109.35, -27.12],
-  "challenge_url": "",
-  "needsReverse": true,
-  "clipToLand": false
-   },
-   {
-  "id": "zanzibar",
-  "name": "Zanzibar",
-  "geojson": "geojson/zanzibar.geojson",
-  "flag": "flags/zanzibar.svg",
-  "label": [39.45, -5.75],
-  "challenge_url": "",
-  "needsReverse": true,
-  "clipToLand": false
-  }
+      "id": "niue",
+      "name": "Niue",
+      "geojson": "geojson/niue.geojson",
+      "flag": "flags/niue.svg",
+      "label": [-169.87, -19.05],
+      "challenge_url": "",
+      "needsReverse": true,
+      "clipToLand": false,
+      "visible": true
+    },
+    {
+      "id": "tonga",
+      "name": "Tonga",
+      "geojson": "geojson/tonga.geojson",
+      "flag": "flags/tonga.svg",
+      "label": [-175.2, -21.2],
+      "challenge_url": "",
+      "needsReverse": true,
+      "clipToLand": false,
+      "visible": true
+    },
+    {
+      "id": "helgoland",
+      "name": "Deät Lun<br>Helgoland",
+      "geojson": "geojson/helgoland.geojson",
+      "flag": "flags/helgoland.svg",
+      "label": [7.8960376, 54.1832998],
+      "challenge_url": "",
+      "needsReverse": true,
+      "clipToLand": false,
+      "visible": false
+    },
+    {
+      "id": "rapanui",
+      "name": "Rapa Nui",
+      "geojson": "geojson/rapanui.geojson",
+      "flag": "flags/rapanui.svg",
+      "label": [-109.35, -27.12],
+      "challenge_url": "",
+      "needsReverse": true,
+      "clipToLand": false,
+      "visible": true
+    },
+    {
+      "id": "zanzibar",
+      "name": "Zanzibar",
+      "geojson": "geojson/zanzibar.geojson",
+      "flag": "flags/zanzibar.svg",
+      "label": [39.45, -5.75],
+      "challenge_url": "",
+      "needsReverse": true,
+      "clipToLand": false,
+      "visible": true
+    }
   ]
 }
