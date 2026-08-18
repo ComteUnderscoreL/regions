@@ -1,5 +1,6 @@
 <svg viewBox="-630 -420 1260 840" width="1260" height="840" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <path d="M-630-420h1260v840H-630z" fill="#2f304e"/>
+<g transform="scale(0.5)">
 <path id="a" d="M0-265.044292l60-28.894477V0H-60V-293.938769z" fill="#fff"/>
 <g id="a3">
 <use xlink:href="#a" transform="rotate(51.428571428571)"/>
@@ -14,4 +15,5 @@
 <use xlink:href="#b" transform="rotate(154.285714285714)"/>
 </g>
 <use xlink:href="#b3" transform="rotate(154.285714285714)"/>
+</g>
 </svg>
