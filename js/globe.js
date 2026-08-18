@@ -293,6 +293,7 @@ async function load() {
   landData = topojson.feature(world, world.objects.land);
 
   for (const item of config.regions) {
+    if (item.visible === false) continue;
     let geojson = await d3.json(item.geojson);
 
     if (item.needsReverse) {
