@@ -8,7 +8,7 @@
       "label": [7.45, 48.35],
       "challenge_url": "",
       "needsReverse": false,
-      "visible": true
+      "visible": false
     },
     {
       "id": "basque",
@@ -18,7 +18,7 @@
       "label": [-1.6, 43.05],
       "challenge_url": "",
       "needsReverse": true,
-      "visible": true
+      "visible": false
     },
     {
       "id": "cornwall",
@@ -38,7 +38,7 @@
       "label": [7.378, 45.7213],
       "challenge_url": "https://www.geoguessr.com/challenge/vLRyp86L4UdIm8vi",
       "needsReverse": true,
-      "visible": true
+      "visible": false
     },
     {
       "id": "gex",
@@ -139,7 +139,7 @@
       "challenge_url": "",
       "needsReverse": true,
       "clipToLand": false,
-      "visible": true
+      "visible": false
     },
     {
       "id": "capeverde",
@@ -150,7 +150,7 @@
       "challenge_url": "https://www.geoguessr.com/challenge/KeMKi5Kza6jC7plG",
       "needsReverse": true,
       "clipToLand": false,
-      "visible": true
+      "visible": false
     },
     {
       "id": "wight",
@@ -161,7 +161,7 @@
       "challenge_url": "",
       "needsReverse": true,
       "clipToLand": false,
-      "visible": true
+      "visible": false
     },
     {
       "id": "zenadth",
@@ -183,7 +183,7 @@
       "challenge_url": "",
       "needsReverse": true,
       "clipToLand": false,
-      "visible": true
+      "visible": false
     },
     {
       "id": "tonga",
@@ -216,7 +216,7 @@
       "challenge_url": "",
       "needsReverse": true,
       "clipToLand": false,
-      "visible": true
+      "visible": false
     },
     {
       "id": "zanzibar",
@@ -227,7 +227,7 @@
       "challenge_url": "",
       "needsReverse": true,
       "clipToLand": false,
-      "visible": true
+      "visible": false
     },
     {
       "id": "aland",
@@ -248,7 +248,7 @@
       "label": [19.25, 42.75],
       "challenge_url": "",
       "needsReverse": false,
-      "visible": true
+      "visible": false
     },
     {
       "id": "nagaland",
@@ -390,7 +390,7 @@
   "label": [142.8, 43.4],
   "challenge_url": "",
   "needsReverse": false,
-  "visible": true
+  "visible": false
 }
   ]
 }
