@@ -266,7 +266,7 @@
       "geojson": "geojson/kurdistan.geojson",
       "flag": "flags/kurdistan.svg",
       "label": [46.3, 35.0],
-      "challenge_url": "",
+      "challenge_url": "https://www.geoguessr.com/challenge/AbcYk01QSwI9bAJH",
       "needsReverse": true,
       "visible": true
     },
