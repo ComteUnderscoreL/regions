@@ -194,7 +194,7 @@
       "challenge_url": "",
       "needsReverse": true,
       "clipToLand": false,
-      "visible": true
+      "visible": false
     },
     {
       "id": "helgoland",
@@ -213,10 +213,10 @@
       "geojson": "geojson/rapanui.geojson",
       "flag": "flags/rapanui.svg",
       "label": [-109.35, -27.12],
-      "challenge_url": "",
+      "challenge_url": "https://www.geoguessr.com/fr/maps/6ab3eefe26238c8ec70777d4/play?challengeId=nfaFAT4rrV1jScbn",
       "needsReverse": true,
       "clipToLand": false,
-      "visible": false
+      "visible": true
     },
     {
       "id": "zanzibar",
