@@ -28,7 +28,7 @@
       "label": [-4.75, 50.42],
       "challenge_url": "",
       "needsReverse": true,
-      "visible": true
+      "visible": false
     },
     {
       "id": "aosta",
@@ -106,9 +106,9 @@
       "geojson": "geojson/inupiat.geojson",
       "flag": "flags/alaska.svg",
       "label": [-157.5, 69.2],
-      "challenge_url": "https://www.geoguessr.com/challenge/A2G6fRnwTqelQ0m6",
+      "challenge_url": "https://www.geoguessr.com/challenge/MIjTchpD6t3IAO5j",
       "needsReverse": true,
-      "visible": false
+      "visible": true
     },
     {
       "id": "nunatsiavut",
