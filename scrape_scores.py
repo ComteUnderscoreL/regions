@@ -315,31 +315,49 @@ def collect(config_path, output_path, client, dry_run=False):
         log("[OK] Aucun challenge actif : fichier inchangé.")
         return False
     old = read_scores(output_path)
-    updates, cache = {}, {}
+    updates, cache, refreshed, failed = {}, {}, set(), []
     today = datetime.now(timezone.utc).date().isoformat()
     for region_id, token in selected:
-        if token not in cache:
-            cache[token] = all_items(client, token)
-        count = 0
-        for item in cache[token]:
-            row = parse_item(item, region_id, token)
-            if row is None:
-                continue
-            previous = old.get(key(row), {})
-            row["date"] = row["date"] or previous.get("date") or today
-            if not row["time_seconds"] and previous.get("score") == row["score"]:
-                row["time_seconds"] = previous.get("time_seconds", "")
-            if key(row) in updates and row != updates[key(row)]:
-                raise ScoreError("Le classement a changé pendant la pagination de " + token + ". Réessayer.")
-            updates[key(row)] = row
-            count += 1
-        if count == 0 and any(k[:2] == (region_id, token) for k in old):
-            raise ScoreError("Le challenge " + token + " renvoie zéro résultat malgré des scores existants. "
-                             "Fichier conservé ; vérifier l'accès.")
-        log("[OK] " + region_id + " : " + str(count) + " résultat(s) terminé(s).")
-    # Actualise les challenges collectés ; les anciens challenges et régions masquées restent archivés.
-    current = set(selected)
-    merged = {k: row for k, row in old.items() if k[:2] not in current}
+        try:
+            if token not in cache:
+                try:
+                    cache[token] = all_items(client, token)
+                except ScoreError as exc:
+                    cache[token] = exc
+            if isinstance(cache[token], ScoreError):
+                raise cache[token]
+            # N'ajoute aucun résultat de ce challenge avant validation complète.
+            region_rows = {}
+            for item in cache[token]:
+                row = parse_item(item, region_id, token)
+                if row is None:
+                    continue
+                previous = old.get(key(row), {})
+                row["date"] = row["date"] or previous.get("date") or today
+                if not row["time_seconds"] and previous.get("score") == row["score"]:
+                    row["time_seconds"] = previous.get("time_seconds", "")
+                if key(row) in region_rows and row != region_rows[key(row)]:
+                    raise ScoreError("Le classement a changé pendant la pagination de " + token + ". Réessayer.")
+                region_rows[key(row)] = row
+        except ScoreError as exc:
+            failed.append(region_id)
+            log("[AVERTISSEMENT] " + region_id + " (" + token + ") : " + str(exc)
+                + " Anciens scores conservés pour ce challenge ; poursuite des autres régions.")
+            continue
+        old_keys = {k for k in old if k[:2] == (region_id, token)}
+        removed = len(old_keys - region_rows.keys())
+        updates.update(region_rows)
+        refreshed.add((region_id, token))
+        log("[OK] " + region_id + " : " + str(len(region_rows)) + " résultat(s) terminé(s)"
+            + (", " + str(removed) + " ancien(s) résultat(s) retiré(s)" if removed else "") + ".")
+    if failed:
+        log("[BILAN] " + str(len(refreshed)) + " challenge(s) actualisé(s), "
+            + str(len(failed)) + " conservé(s) après erreur.")
+    if not refreshed:
+        raise ScoreError("Aucun challenge n'a pu être récupéré. Fichier existant conservé.")
+    # Remplace uniquement les challenges entièrement validés, y compris ceux vides.
+    # Les challenges en erreur, anciens challenges et régions masquées sont conservés.
+    merged = {k: row for k, row in old.items() if k[:2] not in refreshed}
     merged.update(updates)
     data = serialize(merged)
     if output_path.exists() and output_path.read_bytes() == data:
