@@ -150,7 +150,7 @@
       "challenge_url": "https://www.geoguessr.com/challenge/KeMKi5Kza6jC7plG",
       "needsReverse": true,
       "clipToLand": false,
-      "visible": true
+      "visible": false
     },
     {
       "id": "wight",
