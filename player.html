@@ -169,6 +169,7 @@
       max-width: 980px;
       margin: 90px auto 40px;
       padding: 0 16px;
+      overflow-x: auto;
     }
 
     table {
@@ -199,6 +200,95 @@
 
     a {
       color: inherit;
+    }
+
+    .video-button {
+      color: inherit;
+      font: inherit;
+      background: none;
+      border: 0;
+      padding: 4px 0;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    body.video-open {
+      overflow: hidden;
+    }
+
+    .video-dialog {
+      box-sizing: border-box;
+      width: min(620px, calc(100vw - 24px));
+      max-width: none;
+      max-height: calc(100dvh - 24px);
+      margin: auto;
+      padding: 16px;
+      color: white;
+      background: #101820;
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 14px;
+      box-shadow: 0 16px 60px rgba(0,0,0,0.5);
+    }
+
+    .video-dialog::backdrop {
+      background: rgba(0,0,0,0.78);
+    }
+
+    .video-dialog-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .video-dialog h2 {
+      margin: 0;
+      font-size: 18px;
+      overflow-wrap: anywhere;
+    }
+
+    .video-close {
+      flex: 0 0 44px;
+      width: 44px;
+      height: 44px;
+      font: inherit;
+      font-size: 26px;
+      color: white;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .video-player {
+      width: min(100%, max(200px, calc(100dvh - 180px)));
+      aspect-ratio: 1 / 1;
+      margin: 0 auto;
+      background: #000;
+    }
+
+    .video-player iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .video-external {
+      display: block;
+      width: fit-content;
+      margin: 12px auto 0;
+      font-size: 13px;
+      color: #c8d5df;
+    }
+
+    @media (pointer: coarse) {
+      .video-button {
+        min-height: 44px;
+      }
     }
 
     .medal {
@@ -291,6 +381,7 @@
           <th>Time</th>
           <th>Medal</th>
           <th>Challenge</th>
+          <th>Vidéo</th>
         </tr>
       </thead>
 
@@ -300,11 +391,113 @@
 
   <a class="bottom-link" href="index.html">← Globe</a>
 
+  <dialog id="video-dialog" class="video-dialog" aria-labelledby="video-title">
+    <div class="video-dialog-header">
+      <h2 id="video-title">Vidéo</h2>
+      <button id="video-close" class="video-close" type="button" aria-label="Fermer la vidéo" autofocus>×</button>
+    </div>
+    <div id="video-player" class="video-player"></div>
+    <a id="video-external" class="video-external" target="_blank" rel="noopener noreferrer">Voir sur YouTube</a>
+  </dialog>
+
+  <script>
+    // video_url appartient au territoire et ne dépend pas de ses scores.
+    function youtubeVideoId(value) {
+      if (typeof value !== "string" || !value.trim()) return null;
+
+      let url;
+      try {
+        url = new URL(value.trim());
+      } catch {
+        return null;
+      }
+
+      if (url.protocol !== "https:" || url.username || url.password || url.port) return null;
+
+      let id = null;
+      if (url.hostname === "youtu.be" || url.hostname === "www.youtu.be") {
+        id = url.pathname.match(/^\/([A-Za-z0-9_-]{11})\/?$/)?.[1];
+      } else if (["youtube.com", "www.youtube.com", "m.youtube.com"].includes(url.hostname)) {
+        id = url.pathname === "/watch"
+          ? url.searchParams.get("v")
+          : url.pathname.match(/^\/(?:shorts|embed|live)\/([A-Za-z0-9_-]{11})\/?$/)?.[1];
+      } else if (["youtube-nocookie.com", "www.youtube-nocookie.com"].includes(url.hostname)) {
+        id = url.pathname.match(/^\/embed\/([A-Za-z0-9_-]{11})\/?$/)?.[1];
+      }
+
+      return id && /^[A-Za-z0-9_-]{11}$/.test(id) ? id : null;
+    }
+
+    const videoDialog = document.getElementById("video-dialog");
+    const videoPlayer = document.getElementById("video-player");
+    const videoTitle = document.getElementById("video-title");
+    const videoExternal = document.getElementById("video-external");
+    let videoTrigger = null;
+
+    function openRegionVideo(region, trigger) {
+      const id = youtubeVideoId(region.video_url);
+      if (!id) return;
+
+      const name = document.createElement("template");
+      name.innerHTML = String(region.name || region.id).replace(/<br\s*\/?\s*>/gi, " · ");
+      const title = name.content.textContent.trim();
+
+      const embedUrl = new URL("https://www.youtube-nocookie.com/embed/" + id);
+      embedUrl.searchParams.set("autoplay", "1");
+      embedUrl.searchParams.set("playsinline", "1");
+      embedUrl.searchParams.set("rel", "0");
+      if (["https:", "http:"].includes(window.location.protocol)) {
+        embedUrl.searchParams.set("origin", window.location.origin);
+      }
+
+      const iframe = document.createElement("iframe");
+      iframe.title = "Vidéo : " + title;
+      iframe.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen";
+      iframe.allowFullscreen = true;
+      iframe.referrerPolicy = "strict-origin-when-cross-origin";
+      iframe.src = embedUrl.href;
+
+      videoTitle.textContent = title;
+      videoExternal.href = "https://www.youtube.com/watch?v=" + id;
+      videoTrigger = trigger;
+      // Le lecteur n'est chargé qu'après un clic, jamais à l'ouverture de la page.
+      videoPlayer.replaceChildren(iframe);
+      document.body.classList.add("video-open");
+      if (!videoDialog.open) videoDialog.showModal();
+    }
+
+    document.getElementById("video-close").addEventListener("click", () => videoDialog.close());
+    videoDialog.addEventListener("close", () => {
+      // Détruire l'iframe coupe aussi le son, y compris après Échap.
+      videoPlayer.replaceChildren();
+      videoExternal.removeAttribute("href");
+      document.body.classList.remove("video-open");
+      if (videoTrigger?.isConnected) videoTrigger.focus({ preventScroll: true });
+      videoTrigger = null;
+    });
+
+    let videoBackdropPressed = false;
+    function outsideVideoDialog(event) {
+      const bounds = videoDialog.getBoundingClientRect();
+      return event.clientX < bounds.left || event.clientX > bounds.right
+        || event.clientY < bounds.top || event.clientY > bounds.bottom;
+    }
+    videoDialog.addEventListener("pointerdown", event => {
+      videoBackdropPressed = event.target === videoDialog && outsideVideoDialog(event);
+    });
+    videoDialog.addEventListener("click", event => {
+      if (videoBackdropPressed && event.target === videoDialog && outsideVideoDialog(event)) {
+        videoDialog.close();
+      }
+      videoBackdropPressed = false;
+    });
+  </script>
+
   <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
   <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
 
   <script>
-    const CONFIG_URL = "data/regions.json?v=2";
+    const CONFIG_URL = "data/regions.json?v=3";
     const SCORES_URL = "data/player_scores.tsv?v=2";
     const LAND_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/land-110m.json";
 
@@ -1115,11 +1308,28 @@
 
                 </td>
 
+                <td class="video-cell" data-video-region-id="${region.id}">-</td>
+
               </tr>
             `;
 
           })
           .join("");
+
+      const regionsById = new Map(allRegionsConfig.map(region => [region.id, region]));
+      tbody.querySelectorAll(".video-cell").forEach(cell => {
+        const region = regionsById.get(cell.dataset.videoRegionId);
+        if (!region || !youtubeVideoId(region.video_url)) return;
+
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "video-button";
+        button.textContent = "▶ Voir le short";
+        button.setAttribute("aria-haspopup", "dialog");
+        button.setAttribute("aria-controls", "video-dialog");
+        button.addEventListener("click", () => openRegionVideo(region, button));
+        cell.replaceChildren(button);
+      });
 
       tbody
         .querySelectorAll(".medal")
