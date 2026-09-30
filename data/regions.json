@@ -214,7 +214,7 @@
       "geojson": "geojson/rapanui.geojson",
       "flag": "flags/rapanui.svg",
       "label": [-109.35, -27.12],
-      "challenge_url": "https://www.geoguessr.com/fr/maps/6ab3eefe26238c8ec70777d4/play?challengeId=nfaFAT4rrV1jScbn",
+      "challenge_url": "https://www.geoguessr.com/challenge/nfaFAT4rrV1jScbn",
       "needsReverse": true,
       "clipToLand": false,
       "visible": true
