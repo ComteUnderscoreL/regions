@@ -28,7 +28,7 @@
       "label": [-4.75, 50.42],
       "challenge_url": "https://www.geoguessr.com/results/SGNDdUvZ1MwalOZu",
       "needsReverse": true,
-      "visible": false
+      "visible": true
     },
     {
       "id": "aosta",
