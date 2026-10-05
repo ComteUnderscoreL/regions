@@ -27,9 +27,9 @@
       "flag": "flags/cornwall.svg",
       "label": [-4.75, 50.42],
       "challenge_url": "https://www.geoguessr.com/challenge/WqsANZh0uf3MlOHZ",
-      "video_url" : "https://www.youtube.com/shorts/iA9rjLKTzIw"
+      "video_url" : "https://www.youtube.com/shorts/iA9rjLKTzIw",
       "needsReverse": true,
-      "visible": false
+      "visible": true
     },
     {
       "id": "aosta",
