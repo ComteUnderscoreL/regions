@@ -1,0 +1,22 @@
+/* Shared controls reserve their own row so they never overlap a title. */
+.site-controls { display:flex; align-items:center; justify-content:flex-end; gap:10px; padding:12px 20px 0; }
+.language-switch { display:flex; padding:3px; border:1px solid #506171; border-radius:25px; background:#182633; }
+.site-controls button, .help-close { font:inherit; color:#dbe7f0; cursor:pointer; border:0; }
+.language-switch button { min-width:44px; min-height:38px; padding:6px 12px; background:transparent; border-radius:20px; font-size:13px; font-weight:700; }
+.language-switch button[aria-pressed="true"] { background:#d8e7ee; color:#101820; }
+.site-controls .info-button { width:44px; height:44px; border-radius:50%; border:1px solid #506171; background:#182633; font-family:Georgia,serif; font-size:23px; font-weight:bold; }
+.site-controls button:hover, .help-close:hover { filter:brightness(1.2); }
+button:focus-visible, a:focus-visible { outline:3px solid #82d6f4; outline-offset:3px; }
+body.help-open { overflow:hidden; }
+.help-dialog { box-sizing:border-box; width:min(680px,calc(100vw - 24px)); max-height:calc(100dvh - 24px); padding:24px; color:#e9f0f5; background:#101e2b; border:1px solid #506171; border-radius:18px; box-shadow:0 20px 70px #0009; line-height:1.6; }
+.help-dialog::backdrop { background:#000b; }
+.help-heading { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; }
+.help-heading h2 { margin:0; font-size:23px; line-height:1.3; }
+.help-close { flex:0 0 40px; height:40px; font-size:26px; background:#263746; border-radius:8px; }
+.help-dialog h3 { margin:24px 0 8px; color:#9edff3; font-size:17px; }
+.help-dialog p { margin:8px 0; font-size:14px; color:#d1dde6; }
+.help-medals { list-style:none; padding:0; display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.help-medals li { display:flex; align-items:center; gap:12px; font-size:13px; }
+.help-medals img { width:30px; height:30px; flex:none; }
+html[lang="en"] .video-cell, html[lang="en"] [data-fr-only] { display:none; }
+@media(max-width:500px) { .site-controls { padding:10px 12px 0; } .help-dialog { padding:18px; } .help-medals { grid-template-columns:1fr; } }
