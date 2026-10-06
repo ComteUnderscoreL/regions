@@ -89,7 +89,7 @@ function showTooltip(event, region) {
     .style("display", "block")
     .style("left", `${event.clientX + 14}px`)
     .style("top", `${event.clientY + 14}px`)
-    .html(`<strong>${region.name}</strong><span>Click to play the current challenge</span>`);
+    .html(`<strong>${I18n.regionName(region)}</strong><span>${I18n.t("playHint")}</span>`);
 }
 
 function hideTooltip() {
@@ -340,7 +340,13 @@ async function load() {
   redraw();
 }
 
-load();
+load().catch(error => {
+  console.error(error);
+  const message = document.createElement("p");
+  message.textContent = I18n.t("globeError");
+  message.setAttribute("role", "alert");
+  document.getElementById("globe-wrap").append(message);
+});
 
 window.setView = setView;
 window.toggleSpin = toggleSpin;
