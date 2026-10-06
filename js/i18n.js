@@ -126,7 +126,7 @@
     const medalKeys = ['netherite', 'emerald', 'diamond', 'gold', 'iron', 'copper'];
     dialog.innerHTML = `<div class="help-heading"><h2 id="help-title">${t('helpTitle')}</h2><button type="button" class="help-close" aria-label="${t('close')}" autofocus>×</button></div>
       ${section('conceptTitle', ['concept','pinpoint'])}${section('playTitle', ['play','timing','weekly'])}
-      <section><h3>${t('medalsTitle')}</h3><p>${t('medalsIntro')}</p><ul class="help-medals">${medalKeys.map(key => `<li><img src="https://raw.githubusercontent.com/ComteUnderscoreL/geostats/main/medal/${key}.svg" alt="" loading="lazy"><span><strong>${t(key)}</strong><br>${t(key + 'Rule')}</span></li>`).join('')}</ul><p>${t('limits')}</p></section>
+      <section><h3>${t('medalsTitle')}</h3><p>${t('medalsIntro')}</p><ul class="help-medals">${medalKeys.map(key => `<li><img src="https://raw.githubusercontent.com/ComteUnderscoreL/geostats/main/medal/${key}.svg" alt="" loading="lazy"><span><strong>${t(key)}</strong><br>${t(key + 'Rule')}</span></li>`).join('')}</ul></section>
       ${section('personalTitle', ['personal'])}
       ${section('imageryTitle', ['imagery'])}`;
     document.body.append(dialog);
