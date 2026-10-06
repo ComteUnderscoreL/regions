@@ -9,7 +9,7 @@
   const locale = lang === 'fr' ? 'fr-FR' : 'en-US';
   const messages = {
     fr: {
-      subtitle: 'Explorez des pays, territoires et régions à travers des challenges GeoGuessr où chaque lieu peut être retrouvé précisément.',
+      subtitle: 'Explorez des pays, territoires et régions à travers des challenges GeoGuessr pinpointables.',
       medals: 'Médailles', player: 'Joueur', playerHint: 'Cliquez sur un pseudo pour découvrir son globe',
       played: 'Joués', total: 'Total', loading: 'Chargement…', noScores: 'Aucun score pour le moment',
       scoresError: 'Impossible de charger les scores. Réessayez plus tard.',
@@ -22,10 +22,10 @@
       language: 'Langue', info: 'Comment jouer ?', close: 'Fermer', helpTitle: 'Bienvenue sur No Move Explorer',
       conceptTitle: "Le principe",
       concept: "Le <strong>No Move Explorer</strong> est une collection de challenges sur des pays, régions et îles, positionnés autour d’un globe. Certains territoires ont peu, voire pas de Street View officiel.",
-      pinpoint: "Les points sont tous pensés pour être <strong>5kables en no move</strong>, grâce aux indices ou au paysage. Un peu dans le style de la Poivron League.",
+      pinpoint: "Les points sont tous pensés pour être <strong>5kables</strong> en <strong>no move</strong>, grâce aux indices ou au paysage.",
       playTitle: "Les challenges",
-      play: "Cliquez sur un territoire du globe pour ouvrir son challenge. Vous disposez d’<strong>une seule tentative par challenge pendant la saison d’automne</strong>. Les scores sont mis à jour automatiquement et régulièrement.",
-      timing: "Chaque challenge comporte <strong>cinq manches</strong>, avec un maximum de <strong>5 minutes par point</strong>. Pour les médailles, le temps correspond au <strong>total des cinq manches</strong>.",
+      play: "Cliquez sur un territoire du globe pour ouvrir son challenge. Vous disposez d’<strong>une seule</strong> tentative par challenge pendant la saison d’<strong>automne</strong>. Les scores sont mis à jour automatiquement et régulièrement.",
+      timing: "Chaque challenge comporte <strong>cinq manches</strong>, avec un maximum de <strong>5 minutes</strong> par point. Pour les médailles, le temps correspond au <strong>total</strong> des cinq manches.",
       medalsTitle: "Les médailles",
       medalsIntro: "Chaque challenge vous permet d’obtenir une médaille selon votre score et votre temps. La médaille la plus élevée correspondant à votre résultat est retenue.",
       netheriteRule: "25 000 points en moins de 5 minutes",
@@ -36,11 +36,10 @@
       copperRule: "Au moins 5 000 points",
       limits: "En dessous de 5 000 points : aucune médaille. À exactement 5 minutes : Émeraude ; à exactement 10 minutes : Diamant.",
       personalTitle: "Votre globe personnel",
-      personal: "Une fois qu’un de vos scores est enregistré sur le site, vous pouvez <strong>cliquer sur votre pseudo</strong> pour découvrir votre globe personnel, vos scores et vos médailles.",
-      weekly: "J’ajouterai <strong>un nouveau territoire chaque semaine</strong> durant tout l’automne.",
+      personal: "Une fois qu’un de vos scores est enregistré sur le site, vous pouvez <strong>cliquer</strong> sur votre <strong>pseudo</strong> pour découvrir votre globe personnel, vos scores et vos médailles.",
+      weekly: "Un nouveau territoire sera ajouté chaque semaine durant tout l’automne.",
       imageryTitle: "Photosphères et orientation",
       imagery: "Certains points sont des photosphères non officielles, normalement <strong>orientées vers le nord dans la vue de départ</strong>. Leur boussole peut être inexacte : appuyez sur la touche <strong>R</strong> pour retrouver la position initiale.",
-      feedback: "C’est ma première expérience de map-making : soyez indulgents et dites-moi si des lieux posent problème !"
     },
     en: {
       subtitle: 'Explore countries, territories and regions through pinpointable GeoGuessr challenges.',
@@ -54,10 +53,10 @@
       language: 'Language', info: 'How to play', close: 'Close', helpTitle: 'Welcome to No Move Explorer',
       conceptTitle: "The idea",
       concept: "<strong>No Move Explorer</strong> is a collection of challenges featuring countries, regions and islands, placed around a globe. Some territories have little or no official Street View coverage.",
-      pinpoint: "Every location is designed to be <strong>pinpointable for 5,000 points in no move</strong>, using clues or the landscape. A little like the Poivron League.",
+      pinpoint: "Every location is designed to be <strong>pinpointable for 5,000 points</strong> in <strong>no move</strong>, using clues or the landscape.",
       playTitle: "The challenges",
-      play: "Click a territory on the globe to open its challenge. You get <strong>one attempt per challenge during the autumn season</strong>. Scores are updated automatically at regular intervals.",
-      timing: "Each challenge has <strong>five rounds</strong>, with a maximum of <strong>5 minutes per location</strong>. Medal times refer to the <strong>combined time of all five rounds</strong>.",
+      play: "Click a territory on the globe to open its challenge. You get <strong>one attempt</strong> per challenge during the <strong>autumn</strong> season. Scores are updated automatically at regular intervals.",
+      timing: "Each challenge has <strong>five rounds</strong>, with a maximum of <strong>5 minutes</strong> per location. Medal times refer to the <strong>combined time</strong> of all five rounds.",
       medalsTitle: "Medals",
       medalsIntro: "Each challenge can earn you a medal based on your score and time. You receive the highest medal tier your result qualifies for.",
       netheriteRule: "25,000 points in under 5 minutes",
@@ -68,11 +67,10 @@
       copperRule: "At least 5,000 points",
       limits: "Below 5,000 points: no medal. Exactly 5 minutes earns Emerald; exactly 10 minutes earns Diamond.",
       personalTitle: "Your personal globe",
-      personal: "Once one of your scores has been recorded on the site, <strong>click your username</strong> to discover your personal globe, scores and medals.",
-      weekly: "I’ll add <strong>one new territory every week</strong> throughout autumn.",
+      personal: "Once one of your scores has been recorded on the site, <strong>click</strong> your <strong>username</strong> to discover your personal globe, scores and medals.",
+      weekly: "A new territory will be added every week throughout autumn.",
       imageryTitle: "Photospheres and orientation",
       imagery: "Some locations are unofficial photospheres, normally <strong>facing north in the starting view</strong>. Their compass may be inaccurate: press <strong>R</strong> to return to the starting position.",
-      feedback: "This is my first map-making project, so please bear with me and let me know if any locations cause problems!"
     }
   };
   function t(key) { return messages[lang][key] ?? messages.fr[key] ?? key; }
@@ -129,10 +127,10 @@
     const section = (title, keys) => `<section><h3>${t(title)}</h3>${keys.map(key => `<p>${t(key)}</p>`).join('')}</section>`;
     const medalKeys = ['netherite', 'emerald', 'diamond', 'gold', 'iron', 'copper'];
     dialog.innerHTML = `<div class="help-heading"><h2 id="help-title">${t('helpTitle')}</h2><button type="button" class="help-close" aria-label="${t('close')}" autofocus>×</button></div>
-      ${section('conceptTitle', ['concept','pinpoint'])}${section('playTitle', ['play','timing'])}
+      ${section('conceptTitle', ['concept','pinpoint'])}${section('playTitle', ['play','timing','weekly'])}
       <section><h3>${t('medalsTitle')}</h3><p>${t('medalsIntro')}</p><ul class="help-medals">${medalKeys.map(key => `<li><img src="https://raw.githubusercontent.com/ComteUnderscoreL/geostats/main/medal/${key}.svg" alt="" loading="lazy"><span><strong>${t(key)}</strong><br>${t(key + 'Rule')}</span></li>`).join('')}</ul><p>${t('limits')}</p></section>
-      ${section('personalTitle', ['personal','weekly'])}
-      ${section('imageryTitle', ['imagery'])}<p class="help-feedback">${t('feedback')}</p>`;
+      ${section('personalTitle', ['personal'])}
+      ${section('imageryTitle', ['imagery'])}`;
     document.body.append(dialog);
     const info = controls.querySelector('.info-button');
     info.addEventListener('click', () => { dialog.showModal(); document.body.classList.add('help-open'); });
