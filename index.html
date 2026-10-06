@@ -3,7 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Regions</title>
+  <title>No Move Explorer</title>
+  <link rel="stylesheet" href="css/site.css?v=1">
+  <script src="js/i18n.js?v=2"></script>
   <style>
     html, body {
       margin: 0;
@@ -322,7 +324,7 @@
 <body>
   <header>
     <h1>No Move Explorer</h1>
-    <div class="subtitle">Explore countries, territories and regions through pinpointable GeoGuessr challenges.</div>
+    <div class="subtitle" data-i18n="subtitle">Explore countries, territories and regions through pinpointable GeoGuessr challenges.</div>
   </header>
 
   <main id="globe-wrap">
@@ -334,28 +336,28 @@
 
   <section class="leaderboard">
     <div class="leaderboard-header">
-      <h2>Medals</h2>
-      <div class="leaderboard-note">Click a player name to open the globe</div>
+      <h2 data-i18n="medals">Medals</h2>
+      <div class="leaderboard-note" data-i18n="playerHint">Click a player name to open the globe</div>
     </div>
 
     <div class="leaderboard-table-wrap">
       <table>
         <thead>
           <tr>
-            <th class="player-cell">Player</th>
-            <th><img class="medal-head" src="https://raw.githubusercontent.com/ComteUnderscoreL/geostats/main/medal/netherite.svg" alt="Netherite" title="Netherite"></th>
-            <th><img class="medal-head" src="https://raw.githubusercontent.com/ComteUnderscoreL/geostats/main/medal/emerald.svg" alt="Emerald" title="Emerald"></th>
-            <th><img class="medal-head" src="https://raw.githubusercontent.com/ComteUnderscoreL/geostats/main/medal/diamond.svg" alt="Diamond" title="Diamond"></th>
-            <th><img class="medal-head" src="https://raw.githubusercontent.com/ComteUnderscoreL/geostats/main/medal/gold.svg" alt="Gold" title="Gold"></th>
-            <th><img class="medal-head" src="https://raw.githubusercontent.com/ComteUnderscoreL/geostats/main/medal/iron.svg" alt="Iron" title="Iron"></th>
-            <th><img class="medal-head" src="https://raw.githubusercontent.com/ComteUnderscoreL/geostats/main/medal/copper.svg" alt="Copper" title="Copper"></th>
-            <th>Played</th>
-            <th>Total</th>
+            <th class="player-cell" data-i18n="player">Player</th>
+            <th><img class="medal-head" src="https://raw.githubusercontent.com/ComteUnderscoreL/geostats/main/medal/netherite.svg" data-medal-label="netherite" alt="Netherite" title="Netherite"></th>
+            <th><img class="medal-head" src="https://raw.githubusercontent.com/ComteUnderscoreL/geostats/main/medal/emerald.svg" data-medal-label="emerald" alt="Emerald" title="Emerald"></th>
+            <th><img class="medal-head" src="https://raw.githubusercontent.com/ComteUnderscoreL/geostats/main/medal/diamond.svg" data-medal-label="diamond" alt="Diamond" title="Diamond"></th>
+            <th><img class="medal-head" src="https://raw.githubusercontent.com/ComteUnderscoreL/geostats/main/medal/gold.svg" data-medal-label="gold" alt="Gold" title="Gold"></th>
+            <th><img class="medal-head" src="https://raw.githubusercontent.com/ComteUnderscoreL/geostats/main/medal/iron.svg" data-medal-label="iron" alt="Iron" title="Iron"></th>
+            <th><img class="medal-head" src="https://raw.githubusercontent.com/ComteUnderscoreL/geostats/main/medal/copper.svg" data-medal-label="copper" alt="Copper" title="Copper"></th>
+            <th data-i18n="played">Played</th>
+            <th data-i18n="total">Total</th>
           </tr>
         </thead>
         <tbody id="medal-ranking">
           <tr>
-            <td class="player-cell" colspan="9">Loading…</td>
+            <td class="player-cell" colspan="9" data-i18n="loading">Loading…</td>
           </tr>
         </tbody>
       </table>
@@ -364,13 +366,13 @@
 
   <div id="score-tooltip" class="score-tooltip"></div>
 
-  <a class="bottom-link" href="https://www.youtube.com/@Comte_L" target="_blank">
+  <a class="bottom-link" data-fr-only href="https://www.youtube.com/@Comte_L" target="_blank">
     Comte_L
   </a>
 
   <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
   <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
-  <script src="js/globe.js?v=3"></script>
+  <script src="js/globe.js?v=4"></script>
 
   <script>
     const CONFIG_URL_FOR_RANKING = "data/regions.json?v=3";
@@ -379,12 +381,12 @@
     const medalOrder = ["netherite", "emerald", "diamond", "gold", "iron", "copper"];
 
     const medalLabels = {
-      netherite: "Netherite",
-      emerald: "Emerald",
-      diamond: "Diamond",
-      gold: "Gold",
-      iron: "Iron",
-      copper: "Copper"
+      netherite: I18n.t("netherite"),
+      emerald: I18n.t("emerald"),
+      diamond: I18n.t("diamond"),
+      gold: I18n.t("gold"),
+      iron: I18n.t("iron"),
+      copper: I18n.t("copper")
     };
 
     function medalForAttempt(attempt) {
@@ -420,7 +422,7 @@
 
     function formatScore(score) {
       if (!score || score <= 0) return "-";
-      return Number(score).toLocaleString("en-US");
+      return Number(score).toLocaleString(I18n.locale);
     }
 
     function formatTime(seconds) {
@@ -454,7 +456,7 @@
       const map = new Map();
 
       regions.forEach(region => {
-        map.set(region.id, stripHtml(region.name));
+        map.set(region.id, stripHtml(I18n.regionName(region)));
       });
 
       return map;
@@ -578,15 +580,15 @@
         })
         .map(attempt => `
           <tr>
-            <td>${regionNameMap.get(attempt.region_id) || attempt.region_id}</td>
+            <td>${I18n.escapeHtml(regionNameMap.get(attempt.region_id) || attempt.region_id)}</td>
             <td>${formatScore(attempt.score)}</td>
             <td>${formatTime(attempt.time_seconds)}</td>
           </tr>
         `).join("");
 
       tooltip.innerHTML = `
-        <strong>${player.player} · ${medalLabels[medal]}</strong>
-        <div class="small">${attempts.length} region${attempts.length > 1 ? "s" : ""}</div>
+        <strong>${I18n.escapeHtml(player.player)} · ${medalLabels[medal]}</strong>
+        <div class="small">${attempts.length} ${I18n.lang === "fr" ? (attempts.length > 1 ? "territoires" : "territoire") : (attempts.length > 1 ? "territories" : "territory")}</div>
         <table>
           <tbody>${rows}</tbody>
         </table>
@@ -604,7 +606,7 @@
       const tbody = document.getElementById("medal-ranking");
 
       if (!ranking.length) {
-        tbody.innerHTML = `<tr><td class="player-cell" colspan="9">No scores yet</td></tr>`;
+        tbody.innerHTML = `<tr><td class="player-cell" colspan="9">${I18n.t("noScores")}</td></tr>`;
         return;
       }
 
@@ -612,7 +614,7 @@
         <tr>
           <td class="player-cell">
             <span class="rank">#${index + 1}</span>
-            <a class="player-link" href="player.html?id=${encodeURIComponent(player.player_id)}">${player.player}</a>
+            <a class="player-link" href="${I18n.pageUrl(`player.html?id=${encodeURIComponent(player.player_id)}`)}">${I18n.escapeHtml(player.player)}</a>
           </td>
           ${medalOrder.map(medal => `
             <td
@@ -663,7 +665,7 @@
         );
       } catch (error) {
         document.getElementById("medal-ranking").innerHTML =
-          `<tr><td class="player-cell" colspan="9">Could not load data/player_scores.tsv</td></tr>`;
+          `<tr><td class="player-cell" colspan="9">${I18n.t("scoresError")}</td></tr>`;
         console.error(error);
       }
     }
